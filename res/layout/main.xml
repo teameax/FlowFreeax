@@ -16,5 +16,11 @@
             android:text="Color"
             android:onClick="buttonClick"
             />
+    <ImageView
+            android:id="@+id/mainImgage"
+            android:src="@drawable/flo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+            />
 </LinearLayout>
 
