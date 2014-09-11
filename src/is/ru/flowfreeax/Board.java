@@ -94,8 +94,6 @@ public class Board extends View {
                 canvas.drawCircle(75, 75, 50, m_paintRedBubble);
                 m_paintBlueBubble.setColor(Color.BLUE);
                 canvas.drawCircle(383, 383, 50, m_paintRedBubble);
-                /*m_paintGreenBubble.setColor(Color.GREEN);
-                canvas.drawCircle(600, 600, 50, m_paintGreenBubble);*/
             }
         }
         m_path.reset();
@@ -112,19 +110,6 @@ public class Board extends View {
         }
 
         canvas.drawPath( m_path, m_paintPath);
-    }
-
-    // TODO:
-    public void generateBoard(Canvas canvas){
-        // Get coordinates to place initial bubbles
-        int c = 1;
-        int r = 1;
-        int x = colToX(c);
-        int y = rowToY(r);
-        m_rect.set(x, y, x + m_cellHeight + m_cellWidth, y + m_cellHeight + m_cellWidth);
-        m_rect.inset((m_cellHeight + m_cellWidth) / 10, (m_cellHeight + m_cellWidth) / 10);
-        m_shape.setBounds(m_rect);
-        m_shape.draw(canvas);
     }
 
     private boolean areNeighbours( int c1, int r1, int c2, int r2 ) {
