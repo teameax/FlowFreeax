@@ -2,11 +2,16 @@ package is.ru.flowfreeax;
 
 import android.content.Context;
 import android.graphics.*;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.provider.SyncStateContract;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Board extends View {
 
@@ -14,10 +19,14 @@ public class Board extends View {
     private int m_cellWidth;
     private int m_cellHeight;
 
-    private Rect m_rect = new Rect();
-    private Paint m_paintGrid  = new Paint();
-    private Paint m_paintPath  = new Paint();
-    private Path m_path = new Path();
+    private Rect m_rect                 = new Rect();
+    private Paint m_paintGrid           = new Paint();
+    private Paint m_paintRedBubble      = new Paint();
+    private Paint m_paintBlueBubble     = new Paint();
+    private Paint m_paintGreenBubble    = new Paint();
+    private Paint m_paintPath           = new Paint();
+    private Path m_path                 = new Path();
+    private ShapeDrawable m_shape = new ShapeDrawable( new OvalShape() );
 
     private Cellpath m_cellPath = new Cellpath();
 
@@ -49,6 +58,9 @@ public class Board extends View {
         m_paintPath.setStrokeCap( Paint.Cap.ROUND );
         m_paintPath.setStrokeJoin( Paint.Join.ROUND );
         m_paintPath.setAntiAlias( true );
+
+        List<Coordinate> coordinateList = m_cellPath.getCoordinates();
+        Log.d("Board", "PENIS " + String.valueOf(coordinateList));
     }
 
     @Override
@@ -70,13 +82,18 @@ public class Board extends View {
 
     @Override
     protected void onDraw( Canvas canvas ) {
-
         for ( int r=0; r<NUM_CELLS; ++r ) {
             for (int c = 0; c<NUM_CELLS; ++c) {
                 int x = colToX( c );
                 int y = rowToY( r );
                 m_rect.set(x, y, x + m_cellWidth, y + m_cellHeight);
-                canvas.drawRect( m_rect, m_paintGrid );
+                canvas.drawRect(m_rect, m_paintGrid);
+
+                // TODO: This is hardcoded for milestone 2, fix that for milestone 3.
+                m_paintRedBubble.setColor(Color.RED);
+                canvas.drawCircle(75, 75, 50, m_paintRedBubble);
+                m_paintBlueBubble.setColor(Color.BLUE);
+                canvas.drawCircle(383, 383, 50, m_paintRedBubble);
             }
         }
         m_path.reset();
@@ -91,6 +108,7 @@ public class Board extends View {
                                 rowToY(co.getRow()) + m_cellHeight / 2 );
             }
         }
+
         canvas.drawPath( m_path, m_paintPath);
     }
 
