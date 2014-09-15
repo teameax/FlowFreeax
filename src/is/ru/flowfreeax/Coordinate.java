@@ -18,6 +18,14 @@ public class Coordinate {
         return m_row;
     }
 
+    public void setCol(int col) {
+        this.m_col = col;
+    }
+
+    public void setRow(int row) {
+        this.m_row = row;
+    }
+
     @Override
     public boolean equals( Object other ) {
         if ( !(other instanceof Coordinate) ) {

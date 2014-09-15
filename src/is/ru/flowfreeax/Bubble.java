@@ -7,30 +7,28 @@ import android.graphics.Paint;
  */
 public class Bubble {
 
-    private int x;
-    private int y;
+    private Coordinate coordinate;
     private Paint paint;
 
-    public Bubble(int x, int y, Paint paint) {
-        this.x = x;
-        this.y = y;
+    public Bubble(int col, int row, Paint paint) {
+        this.coordinate = new Coordinate(col, row);
         this.paint = paint;
     }
 
-    public int getX() {
-        return x;
+    public int getCol() {
+        return coordinate.getCol();
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setCol(int col) {
+        this.coordinate.setCol(col);
     }
 
-    public int getY() {
-        return y;
+    public int getRow() {
+        return coordinate.getRow();
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setRow(int row) {
+        this.coordinate.setRow(row);
     }
 
     public Paint getPaint() {
@@ -39,5 +37,9 @@ public class Bubble {
 
     public void setPaint(Paint paint) {
         this.paint = paint;
+    }
+
+    public Coordinate getCoordinate() {
+        return this.coordinate;
     }
 }

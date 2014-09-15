@@ -1,5 +1,7 @@
 package is.ru.flowfreeax;
 
+import android.graphics.Paint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,4 +32,5 @@ public class Cellpath {
     public boolean isEmpty() {
         return m_path.isEmpty();
     }
+
 }
