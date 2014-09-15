@@ -13,7 +13,7 @@ public class PlayActivity extends Activity {
 
         SharedPreferences settings = getSharedPreferences( "ColorPref", MODE_PRIVATE );
 
-        int color = settings.getInt( "pathColor", Color.CYAN );
+        int color = settings.getInt( "pathColor", Color.RED );
         Board board = (Board) findViewById( R.id.board );
         board.setColor( color );
     }
