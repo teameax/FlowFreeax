@@ -13,6 +13,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayActivity"/>
-        <activity android:name=".ColorListActivity"/>
+        <activity android:name=".OptionsActivity"/>
     </application>
 </manifest>
