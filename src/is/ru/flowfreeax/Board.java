@@ -125,11 +125,14 @@ public class Board extends View {
 
             Coordinate coordinate = new Coordinate(c, r);
 
+
             if (m_currentRoute.getCellpath().getCoordinates().size() == 0) {
-                if (m_currentRoute.getEnd().getCoordinate().equals(coordinate)
-                        || m_currentRoute.getStart().getCoordinate().equals(coordinate)) {
-                    m_currentRoute.getCellpath().append(coordinate);
-                }
+                m_currentRoute.getCellpath().append(coordinate);
+            }
+            else if (m_currentRoute.getEnd().getCoordinate().equals(coordinate)
+                    || m_currentRoute.getStart().getCoordinate().equals(coordinate)) {
+                m_currentRoute.getCellpath().reset();
+                m_currentRoute.getCellpath().append(coordinate);
             }
             else {
                 m_currentRoute.getCellpath().append(coordinate);
