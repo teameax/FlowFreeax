@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,6 @@ public class Board extends View {
         m_paintPath.setAntiAlias( true );
 
         List<Coordinate> coordinateList = m_cellPath.getCoordinates();
-        Log.d("Board", "PENIS " + String.valueOf(coordinateList));
     }
 
     @Override
@@ -126,7 +126,7 @@ public class Board extends View {
     @Override
     public boolean onTouchEvent( MotionEvent event ) {
 
-        int x = (int) event.getX();         // NOTE: event.getHistorical... might be needed.
+        int x = (int) event.getX();
         int y = (int) event.getY();
         int c = xToCol( x );
         int r = yToRow( y );
@@ -137,7 +137,11 @@ public class Board extends View {
 
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
             m_cellPath.reset();
-            m_cellPath.append( new Coordinate(c,r) );
+
+            if(c == 0 && r == 0 || c == 2 && r == 2){
+                m_cellPath.append( new Coordinate(c,r) );
+            }
+
         }
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {
             if ( !m_cellPath.isEmpty() ) {
