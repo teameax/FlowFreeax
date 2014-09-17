@@ -11,6 +11,14 @@
               android:typeface="monospace"
               android:textSize="24sp"
               android:text="Audio"
+               android:layout_above="@+id/switchSound"
+            />
+    <Switch android:id="@+id/switchSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Sound On"
+            android:textOff="Sound Off"
+
             />
     <TextView android:id="@+id/titleAppearance"
               android:layout_width="150dip"
