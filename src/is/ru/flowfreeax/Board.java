@@ -161,7 +161,6 @@ public class Board extends View {
     }
 
     //region Private Helpers
-
     private int xToCol( int x ) {
         return (x - getPaddingLeft()) / m_cellWidth;
     }
