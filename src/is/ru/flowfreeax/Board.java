@@ -63,6 +63,7 @@ public class Board extends View {
         Route route = m_routes.get(0);
         route.getPaint().setColor(Color.RED);
 
+
         route.createStart(0, 0);
         route.createEnd(2, 3);
 
