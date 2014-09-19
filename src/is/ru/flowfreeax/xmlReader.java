@@ -15,12 +15,14 @@ import java.util.List;
  * Created by joddsson on 18.9.2014.
  */
 public class xmlReader {
+    public Global mGlobals = Global.getInstance();
     public void openRegular(InputStream is, List<RegularChallenge> packs){
         try{
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse( is );
-            NodeList nList = doc.getElementsByTagName( "puzzle" );
+            DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
+            Document doc                        = dBuilder.parse( is );
+            NodeList nList                      = doc.getElementsByTagName( "puzzle" );
+
             for ( int c=0; c<nList.getLength(); ++c ) {
                 Node nNode = nList.item(c);
 
@@ -43,10 +45,11 @@ public class xmlReader {
     // Read the xml files containing the bubble placements.
     public void readPack(InputStream is, List<Pack> packs) {
         try{
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse( is );
-            NodeList nList = doc.getElementsByTagName( "pack" );
+            DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
+            Document doc                        = dBuilder.parse( is );
+            NodeList nList                      = doc.getElementsByTagName( "pack" );
+
             for ( int c=0; c<nList.getLength(); ++c ) {
                 Node nNode = nList.item(c);
 
@@ -58,7 +61,6 @@ public class xmlReader {
                     packs.add( new Pack( name, description, file ) );
                 }
             }
-
 
             for (Pack i : packs){
                 Log.d("Files", i.getFile());

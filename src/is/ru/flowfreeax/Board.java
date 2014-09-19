@@ -22,6 +22,8 @@ public class Board extends View {
     private Paint m_paintPath           = new Paint();
     private Path m_path                 = new Path();
 
+    private xmlReader reader            = new xmlReader();
+
     private List<Route> m_routes = new ArrayList<Route>();
     private Route m_currentRoute;
 
@@ -62,7 +64,6 @@ public class Board extends View {
         //TODO: Hardcoded change for milestone 3
         Route route = m_routes.get(0);
         route.getPaint().setColor(Color.RED);
-
 
         route.createStart(0, 0);
         route.createEnd(2, 3);

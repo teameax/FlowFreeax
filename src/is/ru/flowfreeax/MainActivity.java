@@ -24,20 +24,17 @@ import java.util.List;
 
 //Called when the activity is first created.
 public class MainActivity extends Activity {
-    private Global mGlobals = Global.getInstance();
-    xmlReader reader        = new xmlReader();
+    xmlReader reader = new xmlReader();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        ImageView image = (ImageView) findViewById(R.id.mainImgage);
-
         try {
             List<Pack> packs = new ArrayList<Pack>();
             reader.readPack(getAssets().open("packs/packs.xml"), packs);
-            mGlobals.mPacks = packs;
+            reader.mGlobals.mPacks = packs;
         }
         catch ( Exception e ) {
             e.printStackTrace();
@@ -47,15 +44,16 @@ public class MainActivity extends Activity {
     public void buttonClick(View view){
         Button button       = (Button) view;
         int id              = button.getId();
-        String openRegular  = mGlobals.mPacks.get(0).getFile();
-        String openMania    = mGlobals.mPacks.get(1).getFile();
+        String openRegular  = reader.mGlobals.mPacks.get(0).getFile();
+        String openMania    = reader.mGlobals.mPacks.get(1).getFile();
 
         try {
             if (id == R.id.button_play) {
-                List<RegularChallenge> packs = new ArrayList<RegularChallenge>();
-                reader.openRegular(getAssets().open(openRegular), packs);
+                List<RegularChallenge> pac = new ArrayList<RegularChallenge>();
+                reader.openRegular(getAssets().open(openRegular), pac);
                 startActivity(new Intent(this, PlayActivity.class));
             }
+
             else if (id == R.id.button_options) {
                 startActivity(new Intent(this, OptionsActivity.class));
             }
