@@ -42,4 +42,12 @@ public class Bubble {
     public Coordinate getCoordinate() {
         return this.coordinate;
     }
+
+    @Override
+    public String toString() {
+        return "Bubble{" +
+                "coordinate=" + coordinate +
+                ", paint=" + paint +
+                '}';
+    }
 }

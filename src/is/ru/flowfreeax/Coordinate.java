@@ -34,4 +34,12 @@ public class Coordinate {
         Coordinate otherCo = (Coordinate) other;
         return otherCo.getCol() == this.getCol()&& otherCo.getRow() == this.getRow();
     }
+
+    @Override
+    public String toString() {
+        return "Coordinate{" +
+                "m_col=" + m_col +
+                ", m_row=" + m_row +
+                '}';
+    }
 }

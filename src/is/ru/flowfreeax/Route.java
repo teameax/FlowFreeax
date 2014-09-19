@@ -3,6 +3,8 @@ package is.ru.flowfreeax;
 import android.graphics.Paint;
 import android.util.Log;
 
+import java.util.Arrays;
+
 /**
  * Created by DrepAri on 15.9.14.
  */
@@ -70,6 +72,14 @@ public class Route {
         return firstFound && lastFound;
     }
 
+    @Override
+    public String toString() {
+        return "Route{" +
+                "_bubbles=" + Arrays.toString(_bubbles) +
+                ", _cellpath=" + _cellpath +
+                ", _paint=" + _paint.getColor() +
+                '}';
+    }
 
     //region Getters and Setters
 

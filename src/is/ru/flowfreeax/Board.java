@@ -13,16 +13,17 @@ import java.util.List;
 
 public class Board extends View {
 
-    private final int NUM_CELLS = 5;
+    private final int NUM_CELLS;
     private int m_cellWidth;
     private int m_cellHeight;
+    private Puzzle m_puzzle;
 
+    private Global global               = Global.getInstance();
     private Rect m_rect                 = new Rect();
     private Paint m_paintGrid           = new Paint();
     private Paint m_paintPath           = new Paint();
     private Path m_path                 = new Path();
 
-    private xmlReader reader            = new xmlReader();
 
     private List<Route> m_routes = new ArrayList<Route>();
     private Route m_currentRoute;
@@ -30,6 +31,15 @@ public class Board extends View {
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        ArrayList<Integer> paints = new ArrayList<Integer>();
+        paints.add(Color.RED);
+        paints.add(Color.BLUE);
+        paints.add(Color.GREEN);
+        paints.add(Color.YELLOW);
+        paints.add(Color.CYAN);
+        paints.add(Color.MAGENTA);
+        paints.add(Color.WHITE);
 
         m_paintGrid.setStyle( Paint.Style.STROKE );
         m_paintGrid.setColor( Color.GRAY );
@@ -40,8 +50,19 @@ public class Board extends View {
         m_paintPath.setStrokeJoin( Paint.Join.ROUND );
         m_paintPath.setAntiAlias( true );
 
-        //TODO: Hardoded route fix for milestone 3
-        m_routes.add(new Route());
+        m_puzzle = global.getPuzzle();
+        NUM_CELLS = m_puzzle.getSize();
+
+        int i = 0;
+        for (String flow : m_puzzle.getFlows()) {
+            Route route = new Route();
+            route.getPaint().setColor(paints.get(i));
+
+            route.createStart((int) flow.charAt(0) - 48, (int) flow.charAt(2) - 48);
+            route.createEnd((int) flow.charAt(4) - 48, (int) flow.charAt(6) - 48);
+            m_routes.add(route);
+            i++;
+        }
     }
 
     @Override
@@ -59,14 +80,6 @@ public class Board extends View {
         int sw = Math.max(1, (int) m_paintGrid.getStrokeWidth());
         m_cellWidth  = (xNew - getPaddingLeft() - getPaddingRight() - sw) / NUM_CELLS;
         m_cellHeight = (yNew - getPaddingTop() - getPaddingBottom() - sw) / NUM_CELLS;
-
-
-        //TODO: Hardcoded change for milestone 3
-        Route route = m_routes.get(0);
-        route.getPaint().setColor(Color.RED);
-
-        route.createStart(0, 0);
-        route.createEnd(2, 3);
 
     }
 
@@ -124,6 +137,7 @@ public class Board extends View {
             if (m_currentRoute == null) {
                 return true;
             }
+            System.out.println(m_currentRoute);
 
             Coordinate coordinate = new Coordinate(c, r);
 

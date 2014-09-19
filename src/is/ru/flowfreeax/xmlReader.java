@@ -9,19 +9,25 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by joddsson on 18.9.2014.
  */
-public class xmlReader {
+public class XmlReader {
     public Global mGlobals = Global.getInstance();
-    public void openRegular(InputStream is, List<RegularChallenge> packs){
+    public void openRegular(InputStream is){
         try{
             DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
             Document doc                        = dBuilder.parse( is );
-            NodeList nList                      = doc.getElementsByTagName( "puzzle" );
+            Global global                       = Global.getInstance();
+
+            Node cNode                          = doc.getElementsByTagName( "challenge" ).item(0);
+            NodeList nList                      = cNode.getChildNodes();
+            List<Puzzle> puzzleList             = new ArrayList<Puzzle>();
+
 
             for ( int c=0; c<nList.getLength(); ++c ) {
                 Node nNode = nList.item(c);
@@ -30,12 +36,11 @@ public class xmlReader {
                     Element eNode = (Element) nNode;
                     String size = eNode.getElementsByTagName( "size" ).item(0).getFirstChild().getNodeValue();
                     String flows = eNode.getElementsByTagName( "flows" ).item(0).getFirstChild().getNodeValue();
-                    packs.add( new RegularChallenge( size, flows));
+                    puzzleList.add( new Puzzle( Integer.parseInt(size), readFlows(flows)));
                 }
             }
-            for (RegularChallenge i : packs){
-                Log.d("Flows", i.getFlows());
-            }
+
+            global.setPuzzles(puzzleList);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -69,5 +74,17 @@ public class xmlReader {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private List<String> readFlows(String flows) {
+
+        String[] strings = flows.split(",");
+        List<String> result = new ArrayList<String>();
+
+        for (String s : strings) {
+            result.add(s.substring(s.indexOf("(") + 1, s.indexOf(")")));
+        }
+
+        return result;
     }
 }

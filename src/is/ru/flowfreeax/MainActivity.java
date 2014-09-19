@@ -24,7 +24,7 @@ import java.util.List;
 
 //Called when the activity is first created.
 public class MainActivity extends Activity {
-    xmlReader reader = new xmlReader();
+    XmlReader reader = new XmlReader();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         try {
             List<Pack> packs = new ArrayList<Pack>();
             reader.readPack(getAssets().open("packs/packs.xml"), packs);
-            reader.mGlobals.mPacks = packs;
+            reader.mGlobals.setPacks(packs);
         }
         catch ( Exception e ) {
             e.printStackTrace();
@@ -44,13 +44,12 @@ public class MainActivity extends Activity {
     public void buttonClick(View view){
         Button button       = (Button) view;
         int id              = button.getId();
-        String openRegular  = reader.mGlobals.mPacks.get(0).getFile();
-        String openMania    = reader.mGlobals.mPacks.get(1).getFile();
+        String openRegular  = reader.mGlobals.getPacks().get(0).getFile();
+        String openMania    = reader.mGlobals.getPacks().get(1).getFile();
 
         try {
             if (id == R.id.button_play) {
-                List<RegularChallenge> pac = new ArrayList<RegularChallenge>();
-                reader.openRegular(getAssets().open(openRegular), pac);
+                reader.openRegular(getAssets().open(openRegular));
                 startActivity(new Intent(this, PlayActivity.class));
             }
 
