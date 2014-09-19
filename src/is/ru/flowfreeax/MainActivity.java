@@ -16,24 +16,25 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+//Called when the activity is first created.
 public class MainActivity extends Activity {
-    /**
-     * Called when the activity is first created.
-     */
-    private Global mGlobals = Global.getInstance();
+    xmlReader reader = new xmlReader();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        ImageView image = (ImageView) findViewById(R.id.mainImgage);
+
         try {
             List<Pack> packs = new ArrayList<Pack>();
-            readPack(getAssets().open("packs/packs.xml"), packs);
-            mGlobals.mPacks = packs;
+            reader.readPack(getAssets().open("packs/packs.xml"), packs);
+            reader.mGlobals.mPacks = packs;
         }
         catch ( Exception e ) {
             e.printStackTrace();
@@ -41,34 +42,20 @@ public class MainActivity extends Activity {
     }
 
     public void buttonClick(View view){
-        Button button = (Button) view;
+        Button button       = (Button) view;
+        int id              = button.getId();
+        String openRegular  = reader.mGlobals.mPacks.get(0).getFile();
+        String openMania    = reader.mGlobals.mPacks.get(1).getFile();
 
-        int id = button.getId();
-        if(id == R.id.button_play){
-            startActivity(new Intent(this, PlayActivity.class));
-        }
-        else if(id == R.id.button_options){
-            startActivity(new Intent(this, OptionsActivity.class));
-        }
-    }
+        try {
+            if (id == R.id.button_play) {
+                List<RegularChallenge> pac = new ArrayList<RegularChallenge>();
+                reader.openRegular(getAssets().open(openRegular), pac);
+                startActivity(new Intent(this, PlayActivity.class));
+            }
 
-    // Read the xml files containing the bubble placements.
-    private void readPack(InputStream is, List<Pack> packs) {
-        try{
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse( is );
-            NodeList nList = doc.getElementsByTagName( "pack" );
-            for ( int c=0; c<nList.getLength(); ++c ) {
-                Node nNode = nList.item(c);
-
-                if ( nNode.getNodeType() == Node.ELEMENT_NODE ) {
-                    Element eNode = (Element) nNode;
-                    String name = eNode.getElementsByTagName( "name" ).item(0).getFirstChild().getNodeValue();
-                    String description = eNode.getElementsByTagName("description").item(0).getFirstChild().getNodeValue();
-                    String file = eNode.getElementsByTagName( "file" ).item(0).getFirstChild().getNodeValue();
-                    packs.add( new Pack( name, description, file ) );
-                }
+            else if (id == R.id.button_options) {
+                startActivity(new Intent(this, OptionsActivity.class));
             }
         }
         catch (Exception e){

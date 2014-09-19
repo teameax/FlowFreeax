@@ -9,9 +9,9 @@ public class Pack {
     private String mFile;
 
     Pack( String name, String description, String file )  {
-        mName = name;
-        mDescription = description;
-        mFile = file;
+        mName           = name;
+        mDescription    = description;
+        mFile           = file;
     }
 
     String getName() { return mName; }

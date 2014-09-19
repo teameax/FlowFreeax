@@ -22,6 +22,8 @@ public class Board extends View {
     private Paint m_paintPath           = new Paint();
     private Path m_path                 = new Path();
 
+    private xmlReader reader            = new xmlReader();
+
     private List<Route> m_routes = new ArrayList<Route>();
     private Route m_currentRoute;
 

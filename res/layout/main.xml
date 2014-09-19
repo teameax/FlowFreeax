@@ -6,7 +6,7 @@
               android:layout_gravity="center"
         >
     <ImageView
-            android:id="@+id/mainImgage"
+            android:id="@+id/mainImage"
             android:src="@drawable/flo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
