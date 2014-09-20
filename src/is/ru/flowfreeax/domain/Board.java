@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Board extends View {
 
-    private final int NUM_CELLS;
+    private int num_cells;
     private int m_cellWidth;
     private int m_cellHeight;
     private Puzzle m_puzzle;
@@ -43,7 +43,7 @@ public class Board extends View {
         m_paintPath.setStrokeJoin( Paint.Join.ROUND );
         m_paintPath.setAntiAlias( true );
 
-        NUM_CELLS = getNewPuzzle();
+        getNewPuzzle();
 
     }
 
@@ -60,15 +60,15 @@ public class Board extends View {
     @Override
     protected void onSizeChanged( int xNew, int yNew, int xOld, int yOld ) {
         int sw = Math.max(1, (int) m_paintGrid.getStrokeWidth());
-        m_cellWidth  = (xNew - getPaddingLeft() - getPaddingRight() - sw) / NUM_CELLS;
-        m_cellHeight = (yNew - getPaddingTop() - getPaddingBottom() - sw) / NUM_CELLS;
+        m_cellWidth  = (xNew - getPaddingLeft() - getPaddingRight() - sw) / num_cells;
+        m_cellHeight = (yNew - getPaddingTop() - getPaddingBottom() - sw) / num_cells;
 
     }
 
     @Override
     protected void onDraw( Canvas canvas ) {
-        for ( int r=0; r<NUM_CELLS; ++r ) {
-            for (int c = 0; c<NUM_CELLS; ++c) {
+        for ( int r=0; r<num_cells; ++r ) {
+            for (int c = 0; c<num_cells; ++c) {
                 int x = colToX( c );
                 int y = rowToY( r );
                 m_rect.set(x, y, x + m_cellWidth, y + m_cellHeight);
@@ -108,7 +108,7 @@ public class Board extends View {
         int c = xToCol( x );
         int r = yToRow( y );
 
-        if ( c >= NUM_CELLS || r >= NUM_CELLS ) {
+        if ( c >= num_cells || r >= num_cells ) {
             return true;
         }
 
@@ -141,7 +141,7 @@ public class Board extends View {
             if ( m_currentRoute != null && !m_currentRoute.getCellpath().isEmpty() ) {
                 List<Coordinate> coordinateList = m_currentRoute.getCellpath().getCoordinates();
                 Coordinate last = coordinateList.get(coordinateList.size()-1);
-                if ( areNeighbours(last.getCol(),last.getRow(), c, r)) {
+                if ( areNeighbours(last.getCol(),last.getRow(), c, r) && !isTaken(c, r)) {
                     m_currentRoute.getCellpath().append(new Coordinate(c, r));
                     invalidate();
                 }
@@ -153,10 +153,7 @@ public class Board extends View {
             }
         }
         else if (event.getAction() == MotionEvent.ACTION_UP) {
-            if ( m_currentRoute != null && m_currentRoute.isFinished()) {
-                Log.d("UP", "FINISHED");
-                m_currentRoute = null;
-            }
+            isLevelFinished();
         }
         return true;
     }
@@ -192,7 +189,7 @@ public class Board extends View {
         return Math.abs(c1-c2) + Math.abs(r1-r2) == 1;
     }
 
-    private int getNewPuzzle() {
+    private void getNewPuzzle() {
 
         ArrayList<Integer> paints = new ArrayList<Integer>();
         paints.add(Color.RED);
@@ -204,6 +201,8 @@ public class Board extends View {
         paints.add(Color.WHITE);
 
         m_puzzle = global.getPuzzle();
+        num_cells = m_puzzle.getSize();
+        m_routes.clear();
 
         int i = 0;
         for (String flow : m_puzzle.getFlows()) {
@@ -216,9 +215,25 @@ public class Board extends View {
             i++;
         }
 
-        return m_puzzle.getSize();
+    }
 
+    private void isLevelFinished() {
+        for (Route route : m_routes) {
+            if (!route.isFinished()) {
+                return;
+            }
+        }
+        getNewPuzzle();
+        invalidate();
+    }
 
+    private boolean isTaken(int col, int row) {
+        for (Route route : m_routes) {
+            if (route != m_currentRoute && route.isInRoute(col, row)) {
+                return true;
+            }
+        }
+        return false;
     }
     //endregion
 
