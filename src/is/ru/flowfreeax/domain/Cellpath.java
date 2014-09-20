@@ -1,6 +1,4 @@
-package is.ru.flowfreeax;
-
-import android.graphics.Paint;
+package is.ru.flowfreeax.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,15 @@ public class Cellpath {
 
     public boolean isEmpty() {
         return m_path.isEmpty();
+    }
+
+    public boolean contains( Coordinate coordinate ) {
+        int index = m_path.indexOf(coordinate);
+
+        if(index >= 0) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -1,4 +1,4 @@
-package is.ru.flowfreeax;
+package is.ru.flowfreeax.domain;
 
 public class Coordinate {
 

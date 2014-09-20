@@ -1,25 +1,15 @@
-package is.ru.flowfreeax;
+package is.ru.flowfreeax.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
-import org.w3c.dom.Element;
+import is.ru.flowfreeax.services.Pack;
+import is.ru.flowfreeax.R;
+import is.ru.flowfreeax.services.XmlReader;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 //Called when the activity is first created.

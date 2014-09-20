@@ -1,7 +1,6 @@
-package is.ru.flowfreeax;
+package is.ru.flowfreeax.domain;
 
 import android.graphics.Paint;
-import android.util.Log;
 
 import java.util.Arrays;
 
@@ -14,14 +13,6 @@ public class Route {
     private Cellpath _cellpath = new Cellpath();
     private Paint _paint       = new Paint();
 
-    public Route() {
-    }
-
-    public Route(Bubble start, Bubble end) {
-        _bubbles[0] = start;
-        _bubbles[1] = end;
-    }
-
     public void createStart(int col, int row) {
         _bubbles[0] = new Bubble(col, row, _paint);
     }
@@ -32,12 +23,12 @@ public class Route {
 
     public boolean isInRoute(int col, int row) {
         Coordinate coordinate = new Coordinate(col, row);
-        if (_cellpath.getCoordinates().indexOf(coordinate) == _cellpath.getCoordinates().size() - 1) {
+        if (_cellpath.contains(coordinate)) {
             return true;
         }
         else {
             for (int i = 0; i < _bubbles.length; i++) {
-                if(_bubbles[i].getRow() == row && _bubbles[i].getCol() == col) {
+                if(_bubbles[i].getCoordinate().equals(coordinate)) {
                     return true;
                 }
             }

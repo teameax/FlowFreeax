@@ -1,4 +1,4 @@
-package is.ru.flowfreeax;
+package is.ru.flowfreeax.services;
 
 /**
  * Created by joddsson on 17.9.2014.
@@ -16,5 +16,5 @@ public class Pack {
 
     String getName() { return mName; }
     String getDescription() { return mDescription; }
-    String getFile() { return mFile; }
+    public String getFile() { return mFile; }
 }

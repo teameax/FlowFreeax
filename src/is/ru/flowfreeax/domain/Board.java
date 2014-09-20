@@ -1,4 +1,4 @@
-package is.ru.flowfreeax;
+package is.ru.flowfreeax.domain;
 
 import android.content.Context;
 import android.graphics.*;
@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import is.ru.flowfreeax.services.Global;
+import is.ru.flowfreeax.services.Puzzle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +34,6 @@ public class Board extends View {
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        ArrayList<Integer> paints = new ArrayList<Integer>();
-        paints.add(Color.RED);
-        paints.add(Color.BLUE);
-        paints.add(Color.GREEN);
-        paints.add(Color.YELLOW);
-        paints.add(Color.CYAN);
-        paints.add(Color.MAGENTA);
-        paints.add(Color.WHITE);
-
         m_paintGrid.setStyle( Paint.Style.STROKE );
         m_paintGrid.setColor( Color.GRAY );
 
@@ -50,19 +43,8 @@ public class Board extends View {
         m_paintPath.setStrokeJoin( Paint.Join.ROUND );
         m_paintPath.setAntiAlias( true );
 
-        m_puzzle = global.getPuzzle();
-        NUM_CELLS = m_puzzle.getSize();
+        NUM_CELLS = getNewPuzzle();
 
-        int i = 0;
-        for (String flow : m_puzzle.getFlows()) {
-            Route route = new Route();
-            route.getPaint().setColor(paints.get(i));
-
-            route.createStart((int) flow.charAt(0) - 48, (int) flow.charAt(2) - 48);
-            route.createEnd((int) flow.charAt(4) - 48, (int) flow.charAt(6) - 48);
-            m_routes.add(route);
-            i++;
-        }
     }
 
     @Override
@@ -196,8 +178,6 @@ public class Board extends View {
         return row * m_cellHeight + getPaddingTop() ;
     }
 
-
-
     private Route findRoute(int col, int row) {
         for (Route route : m_routes) {
             if (route.isInRoute(col, row)) {
@@ -208,12 +188,38 @@ public class Board extends View {
         return null;
     }
 
-
-
     private boolean areNeighbours( int c1, int r1, int c2, int r2 ) {
         return Math.abs(c1-c2) + Math.abs(r1-r2) == 1;
     }
 
+    private int getNewPuzzle() {
+
+        ArrayList<Integer> paints = new ArrayList<Integer>();
+        paints.add(Color.RED);
+        paints.add(Color.BLUE);
+        paints.add(Color.GREEN);
+        paints.add(Color.YELLOW);
+        paints.add(Color.CYAN);
+        paints.add(Color.MAGENTA);
+        paints.add(Color.WHITE);
+
+        m_puzzle = global.getPuzzle();
+
+        int i = 0;
+        for (String flow : m_puzzle.getFlows()) {
+            Route route = new Route();
+            route.getPaint().setColor(paints.get(i));
+
+            route.createStart((int) flow.charAt(0) - 48, (int) flow.charAt(2) - 48);
+            route.createEnd((int) flow.charAt(4) - 48, (int) flow.charAt(6) - 48);
+            m_routes.add(route);
+            i++;
+        }
+
+        return m_puzzle.getSize();
+
+
+    }
     //endregion
 
 }
