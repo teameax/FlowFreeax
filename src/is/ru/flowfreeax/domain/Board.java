@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
+import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.services.Global;
 import is.ru.flowfreeax.services.Puzzle;
 
@@ -36,8 +38,8 @@ public class Board extends View {
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        m_paintGrid.setStyle( Paint.Style.STROKE );
         m_paintGrid.setColor( Color.GRAY );
+        m_paintGrid.setStyle( Paint.Style.STROKE );
 
         m_paintPath.setStyle( Paint.Style.STROKE );
         m_paintPath.setStrokeWidth(32);

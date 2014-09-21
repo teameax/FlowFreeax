@@ -1,8 +1,8 @@
 package is.ru.flowfreeax.activities;
 
 import android.os.Bundle;
-import is.ru.flowfreeax.R;
 import android.preference.PreferenceActivity;
+import is.ru.flowfreeax.R;
 
 /**
  * Created by joddsson on 15.9.2014.

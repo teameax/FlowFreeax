@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import is.ru.flowfreeax.R;
 
 import android.view.View;
@@ -21,6 +23,7 @@ import java.util.List;
 //Called when the activity is first created.
 public class MainActivity extends Activity {
     XmlReader reader = new XmlReader();
+
 
     public void playSound() {
         final MediaPlayer mp = new MediaPlayer();
@@ -55,6 +58,16 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
 
         PreferenceManager.setDefaultValues(this, R.xml.options, false);
+
+        //Switch between light and dark theme
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        RelativeLayout main_layout = (RelativeLayout)findViewById(R.id.main);
+        boolean switchOn = preferences.getBoolean("theme_label", false);
+
+        if(switchOn){
+            main_layout.setBackgroundColor(Color.WHITE);
+         }
+
         try {
             List<Pack> packs = new ArrayList<Pack>();
             reader.readPack(getAssets().open("packs/packs.xml"), packs);
