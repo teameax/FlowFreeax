@@ -34,23 +34,28 @@ public class MainActivity extends Activity {
 
     public void playSound() {
         final MediaPlayer mp = new MediaPlayer();
-        if(mp.isPlaying()){
-            mp.stop();
-            mp.reset();
-        }
-        try {
-            mp.reset();
-            AssetFileDescriptor afd;
-            afd = getAssets().openFd("button3.mp3");
-            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            mp.prepare();
-            mp.start();
-        }
-        catch (IllegalStateException e){
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        Boolean switchOn = preferences.getBoolean("board_labels", false);
+
+        if(switchOn){
+            if(mp.isPlaying()){
+                mp.stop();
+                mp.reset();
+            }
+            try {
+                mp.reset();
+                AssetFileDescriptor afd;
+                afd = getAssets().openFd("button3.mp3");
+                mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                mp.prepare();
+                mp.start();
+            }
+            catch (IllegalStateException e){
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
