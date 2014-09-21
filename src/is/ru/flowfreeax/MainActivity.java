@@ -1,15 +1,21 @@
 package is.ru.flowfreeax;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.*;
 import org.w3c.dom.Element;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -26,11 +32,34 @@ import java.util.List;
 public class MainActivity extends Activity {
     xmlReader reader = new xmlReader();
 
+    public void playSound() {
+        final MediaPlayer mp = new MediaPlayer();
+        if(mp.isPlaying()){
+            mp.stop();
+            mp.reset();
+        }
+        try {
+            mp.reset();
+            AssetFileDescriptor afd;
+            afd = getAssets().openFd("button3.mp3");
+            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mp.prepare();
+            mp.start();
+        }
+        catch (IllegalStateException e){
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        PreferenceManager.setDefaultValues(this, R.xml.options, false);
         try {
             List<Pack> packs = new ArrayList<Pack>();
             reader.readPack(getAssets().open("packs/packs.xml"), packs);
@@ -41,7 +70,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void buttonClick(View view){
+    public void buttonClick(final View view){
         Button button       = (Button) view;
         int id              = button.getId();
         String openRegular  = reader.mGlobals.mPacks.get(0).getFile();
@@ -49,12 +78,16 @@ public class MainActivity extends Activity {
 
         try {
             if (id == R.id.button_play) {
+                playSound();
                 List<RegularChallenge> pac = new ArrayList<RegularChallenge>();
                 reader.openRegular(getAssets().open(openRegular), pac);
                 startActivity(new Intent(this, PlayActivity.class));
             }
-
+            else if(id == R.id.button_timeTrial){
+                playSound();
+            }
             else if (id == R.id.button_options) {
+                playSound();
                 startActivity(new Intent(this, OptionsActivity.class));
             }
         }

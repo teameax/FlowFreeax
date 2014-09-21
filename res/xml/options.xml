@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="Theme"
+            android:key="Theme_category"
+            >
+        <CheckBoxPreference
+                android:key="board_labels"
+                android:summary="Use light theme"
+                android:defaultValue="false"
+                />
+    </PreferenceCategory>
+
+</PreferenceScreen>
