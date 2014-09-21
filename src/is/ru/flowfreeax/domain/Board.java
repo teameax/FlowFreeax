@@ -1,7 +1,9 @@
 package is.ru.flowfreeax.domain;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.*;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
