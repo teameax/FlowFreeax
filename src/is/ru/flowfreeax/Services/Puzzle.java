@@ -8,14 +8,20 @@ import java.util.List;
 public class Puzzle {
     private int mSize;
     private List<String> mFlows;
+    private String mType;
+    private int mPid;
 
-    public Puzzle ( int size, List<String> flows ){
-        mSize = size;
-        mFlows= flows;
+    public Puzzle ( int size, List<String> flows, String type, int pid ){
+        mSize  = size;
+        mFlows = flows;
+        mType  = type;
+        mPid   = pid;
     }
 
     public List<String> getFlows() { return mFlows; }
     public int getSize() { return mSize; }
+    public String getType() { return mType; }
+    public int getPid() { return mPid; }
 
     @Override
     public String toString() {

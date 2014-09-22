@@ -14,7 +14,7 @@ import java.util.List;
 
 //Called when the activity is first created.
 public class MainActivity extends Activity {
-    XmlReader reader = new XmlReader();
+    XmlReader reader = new XmlReader( this );
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

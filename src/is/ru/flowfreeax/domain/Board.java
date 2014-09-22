@@ -223,6 +223,7 @@ public class Board extends View {
                 return;
             }
         }
+        global.markAsFinished();
         getNewPuzzle();
         invalidate();
     }

@@ -1,5 +1,9 @@
 package is.ru.flowfreeax.services;
 
+import android.content.Context;
+import android.database.Cursor;
+import is.ru.flowfreeax.database.PuzzlesAdapter;
+
 import java.util.List;
 
 /**
@@ -8,8 +12,10 @@ import java.util.List;
 public class Global {
     private List<Puzzle> puzzles;
     private List<Pack> packs;
-
+    private Context context;
     private int iterator = 0;
+    private PuzzlesAdapter puzzlesAdapter;
+    private Puzzle currentPuzzle = null;
 
     private static Global mInstance = new Global();
 
@@ -27,6 +33,11 @@ public class Global {
         this.puzzles = puzzles;
     }
 
+    public void setContext(Context c) {
+        this.context = c;
+        puzzlesAdapter = new PuzzlesAdapter(context);
+    }
+
     public List<Pack> getPacks() {
         return packs;
     }
@@ -36,8 +47,25 @@ public class Global {
     }
 
     public Puzzle getPuzzle() {
-        Puzzle result = puzzles.get(iterator);
-        iterator++;
-        return result;
+        Cursor cursor;
+        for (Puzzle puzzle : puzzles) {
+            cursor = puzzlesAdapter.queryPuzzles(puzzle.getPid(), puzzle.getType());
+            cursor.moveToNext();
+            if (cursor.getInt(4) == 0) {
+                currentPuzzle = puzzle;
+                break;
+            }
+            cursor.close();
+
+        }
+        if (currentPuzzle == null ) {
+            currentPuzzle = puzzles.get(0);
+        }
+        return currentPuzzle;
+    }
+
+    public void markAsFinished() {
+        long value = puzzlesAdapter.updatePuzzle(currentPuzzle.getPid(), currentPuzzle.getSize(), currentPuzzle.getType(), true);
+        System.out.println(value);
     }
 }

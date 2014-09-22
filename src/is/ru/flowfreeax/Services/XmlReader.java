@@ -1,6 +1,9 @@
 package is.ru.flowfreeax.services;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
+import is.ru.flowfreeax.database.PuzzlesAdapter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,12 +20,22 @@ import java.util.List;
  */
 public class XmlReader {
     public Global mGlobals = Global.getInstance();
+
+    private Context context;
+
+    public XmlReader(Context context) {
+        this.context = context;
+    }
     public void openRegular(InputStream is){
+
+        PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter( context );
+
         try{
             DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
             Document doc                        = dBuilder.parse( is );
             Global global                       = Global.getInstance();
+            global.setContext(context);
 
             Node cNode                          = doc.getElementsByTagName( "challenge" ).item(0);
             NodeList nList                      = cNode.getChildNodes();
@@ -36,7 +49,10 @@ public class XmlReader {
                     Element eNode = (Element) nNode;
                     String size = eNode.getElementsByTagName( "size" ).item(0).getFirstChild().getNodeValue();
                     String flows = eNode.getElementsByTagName( "flows" ).item(0).getFirstChild().getNodeValue();
-                    puzzleList.add( new Puzzle( Integer.parseInt(size), readFlows(flows)));
+                    puzzleList.add( new Puzzle( Integer.parseInt(size), readFlows(flows), "regular", Integer.parseInt(eNode.getAttribute("id")) ));
+                    long value = puzzlesAdapter.insertPuzzleIfNew(Integer.parseInt(eNode.getAttribute("id")),
+                           Integer.parseInt(size), "regular", false);
+                    System.out.println(value);
                 }
             }
 
