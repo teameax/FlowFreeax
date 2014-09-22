@@ -13,7 +13,6 @@ public class Global {
     private List<Puzzle> puzzles;
     private List<Pack> packs;
     private Context context;
-    private int iterator = 0;
     private PuzzlesAdapter puzzlesAdapter;
     private Puzzle currentPuzzle = null;
 
