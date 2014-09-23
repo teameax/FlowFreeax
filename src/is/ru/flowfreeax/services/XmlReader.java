@@ -28,35 +28,32 @@ public class XmlReader {
     }
     public void openRegular(InputStream is){
 
-        PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter( context );
+        try{
+            DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
+            Document doc                        = dBuilder.parse( is );
+            Node cNode                          = doc.getElementsByTagName( "challenge" ).item(0);
+            NodeList nList                      = cNode.getChildNodes();
+
+            readIntoDatabase(nList, "regular");
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void openMania(InputStream is) {
 
         try{
             DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
             Document doc                        = dBuilder.parse( is );
-            Global global                       = Global.getInstance();
-            global.setContext(context);
-
             Node cNode                          = doc.getElementsByTagName( "challenge" ).item(0);
             NodeList nList                      = cNode.getChildNodes();
-            List<Puzzle> puzzleList             = new ArrayList<Puzzle>();
 
+            readIntoDatabase(nList, "mania");
 
-            for ( int c=0; c<nList.getLength(); ++c ) {
-                Node nNode = nList.item(c);
-
-                if ( nNode.getNodeType() == Node.ELEMENT_NODE ) {
-                    Element eNode = (Element) nNode;
-                    String size = eNode.getElementsByTagName( "size" ).item(0).getFirstChild().getNodeValue();
-                    String flows = eNode.getElementsByTagName( "flows" ).item(0).getFirstChild().getNodeValue();
-                    puzzleList.add( new Puzzle( Integer.parseInt(size), readFlows(flows), "regular", Integer.parseInt(eNode.getAttribute("id")) ));
-                    long value = puzzlesAdapter.insertPuzzleIfNew(Integer.parseInt(eNode.getAttribute("id")),
-                           Integer.parseInt(size), "regular", false);
-                    System.out.println(value);
-                }
-            }
-
-            global.setPuzzles(puzzleList);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -82,10 +79,6 @@ public class XmlReader {
                     packs.add( new Pack( name, description, file ) );
                 }
             }
-
-            for (Pack i : packs){
-                Log.d("Files", i.getFile());
-            }
         }
         catch (Exception e){
             e.printStackTrace();
@@ -102,5 +95,29 @@ public class XmlReader {
         }
 
         return result;
+    }
+
+    private void readIntoDatabase(NodeList nodeList, String type) {
+        PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter( context );
+        List<Puzzle> puzzleList             = new ArrayList<Puzzle>();
+        Global global                       = Global.getInstance();
+        global.setContext(context);
+
+        for ( int c=0; c<nodeList.getLength(); ++c ) {
+            Node nNode = nodeList.item(c);
+
+            if ( nNode.getNodeType() == Node.ELEMENT_NODE ) {
+                Element eNode = (Element) nNode;
+                String size = eNode.getElementsByTagName( "size" ).item(0).getFirstChild().getNodeValue();
+                String flows = eNode.getElementsByTagName( "flows" ).item(0).getFirstChild().getNodeValue();
+                puzzleList.add( new Puzzle( Integer.parseInt(size), readFlows(flows), type, Integer.parseInt(eNode.getAttribute("id")) ));
+                long value = puzzlesAdapter.insertPuzzleIfNew(Integer.parseInt(eNode.getAttribute("id")),
+                        Integer.parseInt(size), type, false);
+                System.out.println(value);
+            }
+        }
+
+        global.setPuzzles(puzzleList);
+
     }
 }
