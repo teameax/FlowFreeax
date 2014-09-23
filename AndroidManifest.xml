@@ -13,6 +13,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PlayActivity"/>
+        <activity android:name=".activities.ManiaActivity"/>
         <activity android:name=".activities.OptionsActivity"/>
+
     </application>
 </manifest>
