@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import is.ru.flowfreeax.R;
@@ -18,6 +20,7 @@ import android.preference.PreferenceManager;
 import is.ru.flowfreeax.database.PuzzlesAdapter;
 import is.ru.flowfreeax.services.Pack;
 import is.ru.flowfreeax.services.XmlReader;
+import is.ru.flowfreeax.activities.PlayActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,8 +101,8 @@ public class MainActivity extends Activity {
             else if(id == R.id.button_timeTrial){
                 playSound();
                 reader.openMania(getAssets().open(openMania));
-                startActivity(new Intent(this, PlayActivity.class));
-                //setTimer();
+                startActivity(new Intent(this, ManiaActivity.class));
+
             }
             else if (id == R.id.button_options) {
                 playSound();
@@ -109,21 +112,5 @@ public class MainActivity extends Activity {
         catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    private void setTimer(){
-        new CountDownTimer(10000, 1000){
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                TextView time = (TextView)findViewById(R.id.timer);
-                time.setText("Time remaining: " + millisUntilFinished / 1000);
-            }
-
-            @Override
-            public void onFinish() {
-                startActivity(new Intent(getBaseContext(), MainActivity.class));
-            }
-        }.start();
     }
 }

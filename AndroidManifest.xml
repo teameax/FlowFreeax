@@ -17,5 +17,7 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".activities.OptionsActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ManiaActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 </manifest>

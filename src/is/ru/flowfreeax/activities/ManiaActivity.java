@@ -7,12 +7,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import is.ru.flowfreeax.R;
 
-public class PlayActivity extends Activity {
+public class ManiaActivity extends Activity {
+    CountDownTimer timer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,5 +29,34 @@ public class PlayActivity extends Activity {
         if(switchOn){
             play_layout.setBackgroundColor(Color.WHITE);
         }
+        setTimer();
+    }
+
+    public void setTimer(){
+        setContentView(R.layout.play);
+        timer = new CountDownTimer(10000, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                TextView time = (TextView)findViewById(R.id.timer);
+                time.setText("Time remaining: " + millisUntilFinished / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+            }
+        }.start();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if(keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            timer.cancel();
+            timer.onFinish();
+        }
+        return false;
     }
 }
