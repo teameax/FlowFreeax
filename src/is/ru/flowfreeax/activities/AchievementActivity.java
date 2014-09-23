@@ -32,7 +32,7 @@ public class AchievementActivity extends ListActivity {
                 if(columnIndex == 4){
                     ((ImageView)view).setImageResource(
                             ( cursor.getInt(columnIndex) == 0) ?
-                                    R.drawable.good_job : R.drawable.bad_job );
+                                    R.drawable.good_job : R.drawable.bad_job);
                     return true;
                 }
                 return false;
