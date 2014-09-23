@@ -42,7 +42,7 @@ public class PuzzlesAdapter {
         contentValues.put( cols[3], type );
         contentValues.put( cols[4], finished ? "1" : "0" );
         openToWrite();
-        long value = db.insert(DbHelper.TablePuzzles, null, contentValues );
+        long value = db.insert(DbHelper.TablePuzzles, null, contentValues);
         close();
         return value;
     }
@@ -103,4 +103,11 @@ public class PuzzlesAdapter {
         close();
         return value;
     }
+
+    /*private long updateAchivements(){
+        String[] cols = DbHelper.TablePuzzlesCols;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(cols[4], );
+        return 1;
+    }*/
 }

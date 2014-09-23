@@ -28,8 +28,5 @@ public class PlayActivity extends Activity {
         if(switchOn){
             play_layout.setBackgroundColor(Color.WHITE);
         }
-
-
-
     }
 }
