@@ -116,8 +116,6 @@ public class Board extends View {
             return true;
         }
 
-
-
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
             m_currentRoute = findRoute(c, r);
             if (m_currentRoute == null) {

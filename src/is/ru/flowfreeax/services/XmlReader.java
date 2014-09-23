@@ -20,12 +20,12 @@ import java.util.List;
  */
 public class XmlReader {
     public Global mGlobals = Global.getInstance();
-
     private Context context;
 
     public XmlReader(Context context) {
         this.context = context;
     }
+
     public void openRegular(InputStream is){
 
         try{

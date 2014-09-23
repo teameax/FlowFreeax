@@ -86,4 +86,10 @@ public class PuzzlesAdapter {
             return insertPuzzle(pid, size, type, finished);
         }
     }
+
+    public void dropDatabase() {
+        openToWrite();
+        dbHelper.onUpgrade(db, 0,0 );
+        close();
+    }
 }

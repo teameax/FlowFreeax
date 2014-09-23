@@ -28,6 +28,7 @@
             android:layout_centerInParent="true"
             android:layout_above="@+id/button_options"
             android:text="Time Trial"
+            android:onClick="buttonClick"
             />
     <Button android:id="@+id/button_options"
             android:layout_width="188dip"
