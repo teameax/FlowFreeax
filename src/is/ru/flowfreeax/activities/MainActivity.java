@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import is.ru.flowfreeax.R;
 
 import android.view.View;
@@ -24,7 +25,6 @@ import java.util.List;
 //Called when the activity is first created.
 public class MainActivity extends Activity {
     XmlReader reader = new XmlReader(this);
-
 
     public void playSound() {
         final MediaPlayer mp = new MediaPlayer();
@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
                 playSound();
                 reader.openRegular(getAssets().open(openMania));
                 startActivity(new Intent(this, PlayActivity.class));
-                setTimer();
+                //setTimer();
             }
             else if (id == R.id.button_options) {
                 playSound();
@@ -109,9 +109,11 @@ public class MainActivity extends Activity {
 
     private void setTimer(){
         new CountDownTimer(10000, 1000){
+
             @Override
             public void onTick(long millisUntilFinished) {
-
+                TextView time = (TextView)findViewById(R.id.timer);
+                time.setText("Time remaining: " + millisUntilFinished / 1000);
             }
 
             @Override
