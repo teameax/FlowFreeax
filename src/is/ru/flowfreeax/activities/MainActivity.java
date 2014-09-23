@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.preference.PreferenceManager;
 import is.ru.flowfreeax.database.PuzzlesAdapter;
+import is.ru.flowfreeax.services.Global;
 import is.ru.flowfreeax.services.Pack;
 import is.ru.flowfreeax.services.XmlReader;
 import is.ru.flowfreeax.activities.PlayActivity;
@@ -61,6 +62,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        Global global = Global.getInstance();
+        global.setContext(this);
 
         PreferenceManager.setDefaultValues(this, R.xml.options, false);
 
@@ -107,6 +111,10 @@ public class MainActivity extends Activity {
             else if (id == R.id.button_options) {
                 playSound();
                 startActivity(new Intent(this, OptionsActivity.class));
+            }
+            else if (id == R.id.button_achievements) {
+                playSound();
+                startActivity(new Intent(this, AchievementActivity.class));
             }
         }
         catch (Exception e){

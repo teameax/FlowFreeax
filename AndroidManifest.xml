@@ -19,5 +19,6 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".activities.ManiaActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".activities.AchievementActivity"/>
     </application>
 </manifest>

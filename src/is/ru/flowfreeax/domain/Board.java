@@ -1,15 +1,11 @@
 package is.ru.flowfreeax.domain;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.*;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.RelativeLayout;
-import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.services.Global;
 import is.ru.flowfreeax.services.Puzzle;
 
@@ -38,8 +34,8 @@ public class Board extends View {
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        m_paintGrid.setColor( Color.GRAY );
-        m_paintGrid.setStyle( Paint.Style.STROKE );
+        m_paintGrid.setColor(Color.GRAY);
+        m_paintGrid.setStyle(Paint.Style.STROKE);
 
         m_paintPath.setStyle( Paint.Style.STROKE );
         m_paintPath.setStrokeWidth(32);
@@ -101,7 +97,6 @@ public class Board extends View {
             m_paintPath.setColor(route.getPaint().getColor());
             canvas.drawPath( m_path, m_paintPath);
         }
-
     }
 
     @Override
@@ -150,6 +145,7 @@ public class Board extends View {
 
                 if( m_currentRoute.isFinished()) {
                     Log.d("MOVE", "FINISHED");
+                    global.updateScore(5);
                     m_currentRoute = null;
                 }
             }

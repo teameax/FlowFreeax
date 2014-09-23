@@ -13,8 +13,13 @@
             android:layout_height="wrap_content"
             />
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/timer"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/score"/>
 </LinearLayout>

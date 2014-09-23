@@ -101,7 +101,6 @@ public class XmlReader {
         PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter( context );
         List<Puzzle> puzzleList             = new ArrayList<Puzzle>();
         Global global                       = Global.getInstance();
-        global.setContext(context);
 
         for ( int c=0; c<nodeList.getLength(); ++c ) {
             Node nNode = nodeList.item(c);

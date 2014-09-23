@@ -92,4 +92,15 @@ public class PuzzlesAdapter {
         dbHelper.onUpgrade(db, 0,0 );
         close();
     }
+
+    public long resetPuzzles() {
+        String[] puzzles = DbHelper.TablePuzzlesCols;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(puzzles[4], 0);
+        openToWrite();
+        long value = db.update(DbHelper.TablePuzzles,
+                contentValues, null, null );
+        close();
+        return value;
+    }
 }

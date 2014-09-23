@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">flowfreeax</string>
+    <string name="restart">Restart</string>
+    <string name="title">It\'s over Johnny</string>
+    <string name="message">Your score: </string>
 </resources>
