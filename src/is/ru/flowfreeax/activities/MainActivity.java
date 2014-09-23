@@ -7,6 +7,7 @@ import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.RelativeLayout;
 import is.ru.flowfreeax.R;
 
@@ -92,6 +93,9 @@ public class MainActivity extends Activity {
             }
             else if(id == R.id.button_timeTrial){
                 playSound();
+                reader.openRegular(getAssets().open(openMania));
+                startActivity(new Intent(this, PlayActivity.class));
+                setTimer();
             }
             else if (id == R.id.button_options) {
                 playSound();
@@ -101,5 +105,19 @@ public class MainActivity extends Activity {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void setTimer(){
+        new CountDownTimer(10000, 1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+            }
+        }.start();
     }
 }

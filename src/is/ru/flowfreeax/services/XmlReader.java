@@ -20,14 +20,12 @@ import java.util.List;
  */
 public class XmlReader {
     public Global mGlobals = Global.getInstance();
-
     private Context context;
-
     public XmlReader(Context context) {
         this.context = context;
     }
-    public void openRegular(InputStream is){
 
+    public void openRegular(InputStream is){
         PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter( context );
 
         try{
@@ -41,10 +39,8 @@ public class XmlReader {
             NodeList nList                      = cNode.getChildNodes();
             List<Puzzle> puzzleList             = new ArrayList<Puzzle>();
 
-
             for ( int c=0; c<nList.getLength(); ++c ) {
                 Node nNode = nList.item(c);
-
                 if ( nNode.getNodeType() == Node.ELEMENT_NODE ) {
                     Element eNode = (Element) nNode;
                     String size = eNode.getElementsByTagName( "size" ).item(0).getFirstChild().getNodeValue();
