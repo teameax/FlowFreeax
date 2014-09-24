@@ -22,5 +22,15 @@
                 android:defaultValue="false"
                 />
     </PreferenceCategory>
+    <PreferenceCategory
+            android:title="Reset"
+            android:key="Reset_category"
+            >
+        <Preference
+                android:key="reset_label"
+                android:summary="Reset levels"
+                android:defaultValue="false"
+                />
+    </PreferenceCategory>
 
 </PreferenceScreen>
