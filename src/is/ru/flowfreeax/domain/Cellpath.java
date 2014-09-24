@@ -40,4 +40,11 @@ public class Cellpath {
         return false;
     }
 
+    public void revertToNext(Coordinate coordinate) {
+        int index = m_path.indexOf(coordinate);
+        if (index > 0) {
+            append(m_path.get(index - 1));
+        }
+    }
+
 }

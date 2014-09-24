@@ -63,6 +63,10 @@ public class Route {
         return firstFound && lastFound;
     }
 
+    public void revert(int col, int row) {
+        _cellpath.revertToNext(new Coordinate(col, row));
+    }
+
     @Override
     public String toString() {
         return "Route{" +

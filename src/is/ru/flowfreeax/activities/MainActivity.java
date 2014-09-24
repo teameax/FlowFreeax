@@ -86,8 +86,8 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-        /*PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter(this);
-        puzzlesAdapter.dropDatabase();*/
+        //PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter(this);
+        //puzzlesAdapter.dropDatabase();
     }
 
     public void buttonClick(final View view){

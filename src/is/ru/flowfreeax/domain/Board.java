@@ -132,6 +132,7 @@ public class Board extends View {
             else {
                 m_currentRoute.getCellpath().append(coordinate);
             }
+            invalidate();
 
         }
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {
@@ -231,7 +232,13 @@ public class Board extends View {
     private boolean isTaken(int col, int row) {
         for (Route route : m_routes) {
             if (route != m_currentRoute && route.isInRoute(col, row)) {
-                return true;
+                if (route.isFinished()) {
+                    return true;
+                }
+                else {
+                    route.revert(col, row);
+                    return false;
+                }
             }
         }
         return false;
