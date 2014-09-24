@@ -28,7 +28,7 @@ public class AchievementActivity extends ListActivity {
         startManagingCursor(cursor);
 
          simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.achievement, cursor,
-                            new String[] {"pid", "type", "finished"}, new int[] {R.id.pid, R.id.type, R.id.finished});
+                            new String[] {"pid", "type", "finished"}, new int[] {R.id.pid, R.id.type, R.id.finished}, 0);
 
         simpleCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder(){
             @Override

@@ -2,6 +2,7 @@ package is.ru.flowfreeax.domain;
 
 import android.content.Context;
 import android.graphics.*;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -146,6 +147,7 @@ public class Board extends View {
 
                 if( m_currentRoute.isFinished()) {
                     Log.d("MOVE", "FINISHED");
+                    vibrate();
                     global.updateScore(5);
                     m_currentRoute = null;
                 }
@@ -157,6 +159,11 @@ public class Board extends View {
         return true;
     }
 
+    private void vibrate(){
+        Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
+    }
+    
     //region Private Helpers
     private int xToCol( int x ) {
         return (x - getPaddingLeft()) / m_cellWidth;
@@ -222,7 +229,6 @@ public class Board extends View {
                 return;
             }
         }
-        //global.updateAchievements(true);
 
         global.markAsFinished();
         getNewPuzzle();
