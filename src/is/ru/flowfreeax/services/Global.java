@@ -1,6 +1,7 @@
 package is.ru.flowfreeax.services;
 
 import android.content.Context;
+import android.database.Cursor;
 import is.ru.flowfreeax.database.PuzzlesAdapter;
 
 import java.util.List;
@@ -14,8 +15,9 @@ public class Global {
     private Context context;
     private PuzzlesAdapter puzzlesAdapter;
     private Puzzle currentPuzzle = null;
-    private int score = 0;
-    int iterator = 0;
+    public int iterator = 0;
+
+    private long startTime;
 
     private static Global mInstance = new Global();
 
@@ -35,7 +37,8 @@ public class Global {
 
     public void setContext(Context c) {
         this.context = c;
-        puzzlesAdapter = new PuzzlesAdapter(context);
+        this.iterator = 0;
+        this.puzzlesAdapter = new PuzzlesAdapter(context);
     }
 
     public List<Pack> getPacks() {
@@ -53,15 +56,24 @@ public class Global {
         if (iterator == puzzles.size()) {
             iterator = 0;
         }
+        startTime = System.nanoTime();
         return currentPuzzle;
     }
 
     public void markAsFinished() {
-        long value = puzzlesAdapter.updatePuzzle(currentPuzzle.getPid(), currentPuzzle.getSize(), currentPuzzle.getType(), true);
-    }
+        long elapsedTime = System.nanoTime() - startTime;
+        Cursor cursor = puzzlesAdapter.queryPuzzles(currentPuzzle.getPid(), currentPuzzle.getType());
+        if (cursor.getCount() > 0) {
+            cursor.moveToNext();
+            long currentBestTime = cursor.getLong(5);
 
-    public void updateScore(int deltaScore) {
-        score += deltaScore;
+            if (currentBestTime > elapsedTime || currentBestTime == -1) {
+                puzzlesAdapter.updatePuzzle(currentPuzzle.getPid(), currentPuzzle.getSize(), currentPuzzle.getType(), true, elapsedTime);
+            }
+            else {
+                puzzlesAdapter.updatePuzzle(currentPuzzle.getPid(), currentPuzzle.getSize(), currentPuzzle.getType(), true, currentBestTime);
+            }
+        }
     }
 
     public void updateAchievements(boolean levelFinished) {

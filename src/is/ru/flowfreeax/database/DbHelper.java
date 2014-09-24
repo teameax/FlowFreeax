@@ -11,7 +11,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
 
     public static final String TablePuzzles = "puzzles";
-    public static final String[] TablePuzzlesCols = { "_id", "pid", "size", "type", "finished" };
+    public static final String[] TablePuzzlesCols = { "_id", "pid", "size", "type", "finished", "bestTime" };
 
     private static final String sqlCreateTablePuzzles =
             "CREATE TABLE puzzles(" +
@@ -19,7 +19,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     " pid INTEGER NOT NULL," +
                     " size INTEGER NOT NULL," +
                     " type TEXT," +
-                    " finished INTEGER NOT NULL" +
+                    " finished INTEGER NOT NULL," +
+                    " bestTime REAL" +
                     ");";
 
     private static final String sqlDropTablePuzzles =

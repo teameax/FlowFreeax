@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
           android:orientation="horizontal"
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
+          android:layout_height="match_parent"
+          android:id="@+id/list">
     <TextView
           android:layout_width="wrap_content"
           android:layout_height="?android:attr/listPreferredItemHeight"
           android:textAppearance="?android:attr/textAppearanceLarge"
           android:singleLine="true"
+          android:layout_marginLeft="10dp"
           android:layout_weight="1"
           android:id="@+id/pid"/>
     <TextView
@@ -16,8 +20,22 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:singleLine="true"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:id="@+id/type"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:id="@+id/size"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:singleLine="true"
+            android:layout_weight="2"
+            android:id="@+id/best"/>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="?android:attr/listPreferredItemHeight"

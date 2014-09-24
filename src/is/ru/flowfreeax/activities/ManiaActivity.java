@@ -13,14 +13,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import is.ru.flowfreeax.R;
+import is.ru.flowfreeax.services.Global;
 
 public class ManiaActivity extends Activity {
     CountDownTimer timer;
+    public static final String SCORE_NAME = "ScoreFile";
+    private Global global = Global.getInstance();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
 
+        global.setContext(this);
         //Switch between light and dark theme
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         LinearLayout play_layout = (LinearLayout)findViewById(R.id.play);
@@ -34,7 +38,7 @@ public class ManiaActivity extends Activity {
 
     public void setTimer(){
         setContentView(R.layout.play);
-        timer = new CountDownTimer(10000, 1000){
+        timer = new CountDownTimer(40000, 1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -44,6 +48,14 @@ public class ManiaActivity extends Activity {
 
             @Override
             public void onFinish() {
+
+                SharedPreferences score = getSharedPreferences(SCORE_NAME, 0);
+                int maniaScore = score.getInt("score", 0);
+                if (maniaScore < global.iterator - 1) {
+                    SharedPreferences.Editor editor = score.edit();
+                    editor.putInt("score", global.iterator - 1);
+                    editor.commit();
+                }
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
             }
         }.start();
@@ -58,5 +70,12 @@ public class ManiaActivity extends Activity {
             timer.onFinish();
         }
         return false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        global.iterator = 0;
+
     }
 }

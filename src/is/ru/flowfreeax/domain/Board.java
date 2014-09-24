@@ -146,7 +146,6 @@ public class Board extends View {
 
                 if( m_currentRoute.isFinished()) {
                     Log.d("MOVE", "FINISHED");
-                    global.updateScore(5);
                     m_currentRoute = null;
                 }
             }
@@ -232,7 +231,7 @@ public class Board extends View {
     private boolean isTaken(int col, int row) {
         for (Route route : m_routes) {
             if (route != m_currentRoute && route.isInRoute(col, row)) {
-                if (route.isFinished()) {
+                if (route.isOnBubbles(col, row) || route.isFinished()) {
                     return true;
                 }
                 else {

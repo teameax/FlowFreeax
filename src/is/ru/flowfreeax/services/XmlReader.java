@@ -31,11 +31,18 @@ public class XmlReader {
         try{
             DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
-            Document doc                        = dBuilder.parse( is );
-            Node cNode                          = doc.getElementsByTagName( "challenge" ).item(0);
-            NodeList nList                      = cNode.getChildNodes();
+            Document doc                        = dBuilder.parse(is);
+            NodeList cList                      = doc.getElementsByTagName( "challenge" );
+            Global global                       = Global.getInstance();
+            List<Puzzle> puzzles                = new ArrayList<Puzzle>();
 
-            readIntoDatabase(nList, "regular");
+
+            for (int i = 0; i < cList.getLength(); i++) {
+                puzzles.addAll(readIntoDatabase(cList.item(i).getChildNodes(), "regular"));
+            }
+
+            global.setPuzzles(puzzles);
+
 
         }
         catch (Exception e){
@@ -49,10 +56,15 @@ public class XmlReader {
             DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
             Document doc                        = dBuilder.parse( is );
-            Node cNode                          = doc.getElementsByTagName( "challenge" ).item(0);
-            NodeList nList                      = cNode.getChildNodes();
+            NodeList cList                      = doc.getElementsByTagName( "challenge" );
+            Global global                       = Global.getInstance();
+            List<Puzzle> puzzles                = new ArrayList<Puzzle>();
 
-            readIntoDatabase(nList, "mania");
+            for (int i = 0; i < cList.getLength(); i++) {
+                puzzles.addAll(readIntoDatabase(cList.item(i).getChildNodes(), "mania"));
+            }
+
+            global.setPuzzles(puzzles);
 
         }
         catch (Exception e){
@@ -97,10 +109,9 @@ public class XmlReader {
         return result;
     }
 
-    private void readIntoDatabase(NodeList nodeList, String type) {
-        PuzzlesAdapter puzzlesAdapter = new PuzzlesAdapter( context );
+    private List<Puzzle> readIntoDatabase(NodeList nodeList, String type) {
+        PuzzlesAdapter puzzlesAdapter       = new PuzzlesAdapter( context );
         List<Puzzle> puzzleList             = new ArrayList<Puzzle>();
-        Global global                       = Global.getInstance();
 
         for ( int c=0; c<nodeList.getLength(); ++c ) {
             Node nNode = nodeList.item(c);
@@ -111,12 +122,10 @@ public class XmlReader {
                 String flows = eNode.getElementsByTagName( "flows" ).item(0).getFirstChild().getNodeValue();
                 puzzleList.add( new Puzzle( Integer.parseInt(size), readFlows(flows), type, Integer.parseInt(eNode.getAttribute("id")) ));
                 long value = puzzlesAdapter.insertPuzzleIfNew(Integer.parseInt(eNode.getAttribute("id")),
-                        Integer.parseInt(size), type, false);
+                        Integer.parseInt(size), type, false, -1);
                 System.out.println(value);
             }
         }
-
-        global.setPuzzles(puzzleList);
-
+        return puzzleList;
     }
 }

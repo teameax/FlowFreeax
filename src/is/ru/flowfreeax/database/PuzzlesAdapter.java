@@ -34,28 +34,30 @@ public class PuzzlesAdapter {
         db.close();
     }
 
-    public long insertPuzzle( int pid, int size, String type, boolean finished ) {
+    public long insertPuzzle( int pid, int size, String type, boolean finished, long bestTime ) {
         String[] cols = DbHelper.TablePuzzlesCols;
         ContentValues contentValues = new ContentValues();
         contentValues.put( cols[1], ((Integer)pid).toString() );
         contentValues.put( cols[2], ((Integer)size).toString() );
         contentValues.put( cols[3], type );
         contentValues.put( cols[4], finished ? "1" : "0" );
+        contentValues.put( cols[5], (Long.toString(bestTime)) );
         openToWrite();
         long value = db.insert(DbHelper.TablePuzzles, null, contentValues);
         close();
         return value;
     }
 
-    public long updatePuzzle( int pid, int size, String type, boolean finished ) {
+    public long updatePuzzle( int pid, int size, String type, boolean finished, long bestTime ) {
         String[] cols = DbHelper.TablePuzzlesCols;
         ContentValues contentValues = new ContentValues();
         contentValues.put( cols[1], ((Integer)pid).toString() );
         contentValues.put( cols[2], ((Integer)size).toString() );
         contentValues.put( cols[3], type );
         contentValues.put( cols[4], finished ? "1" : "0" );
+        contentValues.put( cols[5], (Long.toString(bestTime)) );
         openToWrite();
-        long value = db.update(DbHelper.TablePuzzles, contentValues, cols[1] + "="+ pid, null );
+        long value = db.update(DbHelper.TablePuzzles, contentValues, cols[1] + "=" + pid + " and " + cols[3] + "=?", new String[] {type} );
         close();
         return value;
     }
@@ -75,7 +77,7 @@ public class PuzzlesAdapter {
         return cursor;
     }
 
-    public long insertPuzzleIfNew( int pid, int size, String type, boolean finished) {
+    public long insertPuzzleIfNew( int pid, int size, String type, boolean finished, long bestTime) {
         Cursor cursor = queryPuzzles(pid, type);
         if (cursor.getCount() == 1) {
             cursor.close();
@@ -83,7 +85,7 @@ public class PuzzlesAdapter {
         }
         else {
             cursor.close();
-            return insertPuzzle(pid, size, type, finished);
+            return insertPuzzle(pid, size, type, finished, bestTime);
         }
     }
 

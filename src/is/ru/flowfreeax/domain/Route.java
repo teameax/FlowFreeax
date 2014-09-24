@@ -67,6 +67,16 @@ public class Route {
         _cellpath.revertToNext(new Coordinate(col, row));
     }
 
+    public boolean isOnBubbles(int col, int row) {
+        for (Bubble bubble : _bubbles) {
+            if (bubble.getCol() == col
+                    && bubble.getRow() == row) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Route{" +
