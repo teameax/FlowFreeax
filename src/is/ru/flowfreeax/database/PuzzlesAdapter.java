@@ -98,16 +98,18 @@ public class PuzzlesAdapter {
         ContentValues contentValues = new ContentValues();
         contentValues.put(puzzles[4], 0);
         openToWrite();
-        long value = db.update(DbHelper.TablePuzzles,
-                contentValues, null, null );
+        long value = db.update(DbHelper.TablePuzzles, contentValues, null, null );
         close();
         return value;
     }
 
-    /*private long updateAchivements(){
+    public long updateAchivements( boolean levelFinished){
         String[] cols = DbHelper.TablePuzzlesCols;
         ContentValues contentValues = new ContentValues();
-        contentValues.put(cols[4], );
-        return 1;
-    }*/
+        contentValues.put(cols[4], levelFinished ? "1" : "0");
+        openToWrite();
+        long value = db.update(DbHelper.TablePuzzles, contentValues, null, null);
+        close();
+        return value;
+    }
 }

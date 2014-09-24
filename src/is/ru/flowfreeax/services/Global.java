@@ -64,4 +64,7 @@ public class Global {
         score += deltaScore;
     }
 
+    public void updateAchievements(boolean levelFinished) {
+        puzzlesAdapter.updateAchivements(levelFinished);
+    }
 }

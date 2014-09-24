@@ -221,6 +221,8 @@ public class Board extends View {
                 return;
             }
         }
+        //global.updateAchievements(true);
+
         global.markAsFinished();
         getNewPuzzle();
         invalidate();
