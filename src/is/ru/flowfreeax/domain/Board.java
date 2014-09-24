@@ -211,7 +211,10 @@ public class Board extends View {
         paints.add(Color.WHITE);
 
         m_puzzle = global.getPuzzle();
-        num_cells = m_puzzle.getSize();
+        if (m_puzzle.getSize() > num_cells || m_puzzle.getSize() < num_cells) {
+            num_cells = m_puzzle.getSize();
+            onSizeChanged(getWidth(), getHeight(), 0, 0);
+        }
         m_routes.clear();
 
         int i = 0;
