@@ -25,6 +25,7 @@ public class ManiaActivity extends Activity {
         setContentView(R.layout.play);
 
         global.setContext(this);
+
         //Switch between light and dark theme
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         LinearLayout play_layout = (LinearLayout)findViewById(R.id.play);
@@ -36,6 +37,9 @@ public class ManiaActivity extends Activity {
         setTimer();
     }
 
+    /**
+     * Timer for mania mode.
+     */
     public void setTimer(){
         setContentView(R.layout.play);
         timer = new CountDownTimer(40000, 1000){
@@ -61,21 +65,21 @@ public class ManiaActivity extends Activity {
         }.start();
     }
 
+    /**
+     * Handle when the back button is pushed.
+     * @param keyCode What key is pressed.
+     * @param event What should happen if param1 is pressed. Not used in this example.
+     * @return If param1 is not pressed, do nothing.
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if(keyCode == KeyEvent.KEYCODE_BACK)
         {
             timer.cancel();
+            global.iterator = 0;
             timer.onFinish();
         }
         return false;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        global.iterator = 0;
-
     }
 }

@@ -149,8 +149,8 @@ public class Board extends View {
                 }
 
                 if( m_currentRoute.isFinished()) {
+                    // Check if vibrate is on in options and vibrate if so.
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-
                     boolean vibrateOn = preferences.getBoolean("vibrate_labels", false);
                     if(vibrateOn){
                         vibrate();
@@ -184,7 +184,7 @@ public class Board extends View {
 
     private void vibrate(){
         Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(500);
+        vibrator.vibrate(100);
     }
 
     private Route findRoute(int col, int row) {
@@ -193,7 +193,6 @@ public class Board extends View {
                 return route;
             }
         }
-
         return null;
     }
 

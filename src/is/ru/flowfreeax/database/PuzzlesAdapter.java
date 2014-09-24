@@ -1,13 +1,14 @@
 package is.ru.flowfreeax.database;
 
-/**
- * Created by DrepAri on 20.9.14.
- */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * An adapter that uses DbHelper to implement game essential functions.
+ * Created by DrepAri on 20.9.14.
+ */
 public class PuzzlesAdapter {
 
     SQLiteDatabase db;
@@ -93,25 +94,5 @@ public class PuzzlesAdapter {
         openToWrite();
         dbHelper.onUpgrade(db, 0,0 );
         close();
-    }
-
-    public long resetPuzzles() {
-        String[] puzzles = DbHelper.TablePuzzlesCols;
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(puzzles[4], 0);
-        openToWrite();
-        long value = db.update(DbHelper.TablePuzzles, contentValues, null, null );
-        close();
-        return value;
-    }
-
-    public long updateAchivements( boolean levelFinished){
-        String[] cols = DbHelper.TablePuzzlesCols;
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(cols[4], levelFinished ? "1" : "0");
-        openToWrite();
-        long value = db.update(DbHelper.TablePuzzles, contentValues, null, null);
-        close();
-        return value;
     }
 }

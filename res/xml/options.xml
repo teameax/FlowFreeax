@@ -18,16 +18,6 @@
                 />
     </PreferenceCategory>
     <PreferenceCategory
-            android:title="Theme"
-            android:key="Theme_category"
-            >
-        <SwitchPreference
-                android:key="theme_label"
-                android:summary="Light theme"
-                android:defaultValue="false"
-                />
-    </PreferenceCategory>
-    <PreferenceCategory
             android:title="Reset"
             android:key="Reset_category"
             >

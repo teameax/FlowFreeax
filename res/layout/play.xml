@@ -6,7 +6,6 @@
               android:layout_height="match_parent"
               android:id="@+id/play"
         >
-    >
     <is.ru.flowfreeax.domain.Board
             android:id="@+id/board"
             android:layout_width="fill_parent"
@@ -15,11 +14,6 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:textSize="20dp"
             android:id="@+id/timer"/>
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/score"/>
 </LinearLayout>

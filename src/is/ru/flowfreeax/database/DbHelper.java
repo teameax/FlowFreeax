@@ -4,9 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
+/**
+ * A database helper that stores info on the game and the game progress.
+ */
 public class DbHelper extends SQLiteOpenHelper {
-
     public static final String DB_NAME = "FLOWFREE_DB";
     public static final int DB_VERSION = 1;
 
