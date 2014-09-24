@@ -5,7 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * A database helper that stores info on the game and the game progress.
+ * A database helper that creates the database table, stores info on the game and the game progress.
+ *
  */
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "FLOWFREE_DB";
@@ -14,6 +15,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TablePuzzles = "puzzles";
     public static final String[] TablePuzzlesCols = { "_id", "pid", "size", "type", "finished", "bestTime" };
 
+    // Create database table.
     private static final String sqlCreateTablePuzzles =
             "CREATE TABLE puzzles(" +
                     " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -24,8 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     " bestTime REAL" +
                     ");";
 
-    private static final String sqlDropTablePuzzles =
-            "DROP TABLE IF EXISTS puzzles;";
+    private static final String sqlDropTablePuzzles = "DROP TABLE IF EXISTS puzzles;";
 
     public DbHelper( Context context ) {
         super( context, DB_NAME, null, DB_VERSION );

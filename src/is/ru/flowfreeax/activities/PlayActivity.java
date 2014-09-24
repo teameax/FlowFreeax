@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.services.Global;
 
+/**
+ * Activity for the regular play mode.
+ */
 public class PlayActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {

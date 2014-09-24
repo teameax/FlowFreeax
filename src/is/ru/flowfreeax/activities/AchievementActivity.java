@@ -13,6 +13,7 @@ import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.database.PuzzlesAdapter;
 
 /**
+ * Activity to display game progress.
  * Created by DrepAri on 23.9.14.
  */
 public class AchievementActivity extends ListActivity {
@@ -30,8 +31,9 @@ public class AchievementActivity extends ListActivity {
         startManagingCursor(cursor);
 
         // Specify list items in the achievements activity.
-        simpleCursorAdapter = new SimpleCursorAdapter(this, R.layout.achievement, cursor,
-                            new String[] {"pid", "type", "size", "finished", "bestTime"}, new int[] {R.id.pid, R.id.type, R.id.size, R.id.finished, R.id.best}, 0);
+        simpleCursorAdapter =   new SimpleCursorAdapter(this, R.layout.achievement, cursor,
+                                new String[] {"pid", "type", "size", "finished", "bestTime"},
+                                new int[] {R.id.pid, R.id.type, R.id.size, R.id.finished, R.id.best}, 0);
 
         // Set custom values.
         simpleCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder(){

@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.services.Global;
 import is.ru.flowfreeax.services.Pack;
@@ -20,6 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity created when the app is run.
+ */
 public class MainActivity extends Activity {
     XmlReader reader = new XmlReader(this);
 
@@ -41,6 +42,10 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Handle user touch input.
+     * @param view The view the input is received.
+     */
     public void buttonClick(final View view){
         Button button       = (Button) view;
         int id              = button.getId();
@@ -49,22 +54,22 @@ public class MainActivity extends Activity {
 
         try {
             if (id == R.id.button_play) {
-                playSound("button3.mp3");
+                playSound();
                 reader.openRegular(getAssets().open(openRegular));
                 startActivity(new Intent(this, PlayActivity.class));
             }
             else if(id == R.id.button_timeTrial){
-                playSound("button3.mp3");
+                playSound();
                 reader.openMania(getAssets().open(openMania));
                 startActivity(new Intent(this, ManiaActivity.class));
 
             }
             else if (id == R.id.button_options) {
-                playSound("button3.mp3");
+                playSound();
                 startActivity(new Intent(this, OptionsActivity.class));
             }
             else if (id == R.id.button_achievements) {
-                playSound("button3.mp3");
+                playSound();
                 startActivity(new Intent(this, AchievementActivity.class));
             }
         }
@@ -76,12 +81,14 @@ public class MainActivity extends Activity {
     /**
      * Play sound when buttons in main layout if the the audio switch is on in the options.
      */
-    public void playSound(String sound) {
+    public void playSound() {
         final MediaPlayer mp = new MediaPlayer();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        Boolean switchOn = preferences.getBoolean("board_labels", false);
 
-        if(switchOn){
+        //Check if the audio switch is on in the options activity and play the sound if so.
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        Boolean audioOn = preferences.getBoolean("board_labels", false);
+
+        if(audioOn){
             if(mp.isPlaying()){
                 mp.stop();
                 mp.reset();
@@ -89,7 +96,7 @@ public class MainActivity extends Activity {
             try {
                 mp.reset();
                 AssetFileDescriptor afd;
-                afd = getAssets().openFd(sound);
+                afd = getAssets().openFd("button3.mp3");
                 mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                 mp.prepare();
                 mp.start();

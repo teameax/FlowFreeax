@@ -10,10 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import is.ru.flowfreeax.services.Global;
 import is.ru.flowfreeax.services.Puzzle;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Board extends View {
 

@@ -6,15 +6,14 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.preference.PreferenceManager;
 import android.view.KeyEvent;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.services.Global;
 
+/**
+ * Activity for the time trial mode.
+ */
 public class ManiaActivity extends Activity {
     CountDownTimer timer;
     public static final String SCORE_NAME = "ScoreFile";
@@ -26,14 +25,6 @@ public class ManiaActivity extends Activity {
 
         global.setContext(this);
 
-        //Switch between light and dark theme
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        LinearLayout play_layout = (LinearLayout)findViewById(R.id.play);
-        boolean switchOn = preferences.getBoolean("theme_label", false);
-
-        if(switchOn){
-            play_layout.setBackgroundColor(Color.WHITE);
-        }
         setTimer();
     }
 
@@ -44,6 +35,10 @@ public class ManiaActivity extends Activity {
         setContentView(R.layout.play);
         timer = new CountDownTimer(60000, 1000){
 
+            /**
+             * Displays time left in real time
+             * @param millisUntilFinished Milliseconds until time is finished.
+             */
             @Override
             public void onTick(long millisUntilFinished) {
                 TextView time = (TextView)findViewById(R.id.timer);
@@ -53,6 +48,9 @@ public class ManiaActivity extends Activity {
                 }
             }
 
+            /**
+             * Update high score in achievements and redirect user to main activity.
+             */
             @Override
             public void onFinish() {
                 SharedPreferences score = getSharedPreferences(SCORE_NAME, 0);
@@ -68,14 +66,13 @@ public class ManiaActivity extends Activity {
     }
 
     /**
-     * Handle when the back button is pushed.
+     * If the back button is pushed: stop the timer, initialize high score iterator, and redirect to main activity.
      * @param keyCode What key is pressed.
      * @param event What should happen if param1 is pressed. Not used in this example.
      * @return If param1 is not pressed, do nothing.
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if(keyCode == KeyEvent.KEYCODE_BACK)
         {
             timer.cancel();

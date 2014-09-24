@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.database.PuzzlesAdapter;
 
+/**
+ * Activity that handles the "Reset game" functionality amongst other options.
+ */
 public class OptionsActivity extends PreferenceActivity{
     final int DIALOG_CONFIRM = 20;
     @Override
