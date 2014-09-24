@@ -3,6 +3,7 @@ package is.ru.flowfreeax.services;
 import java.util.List;
 
 /**
+ * POJO that represents a puzzle instance
  * Created by joddsson on 18.9.2014.
  */
 public class Puzzle {

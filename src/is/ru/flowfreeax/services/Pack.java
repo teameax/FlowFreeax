@@ -1,6 +1,7 @@
 package is.ru.flowfreeax.services;
 
 /**
+ * POJO that represents a pack instance
  * Created by joddsson on 17.9.2014.
  */
 public class Pack {

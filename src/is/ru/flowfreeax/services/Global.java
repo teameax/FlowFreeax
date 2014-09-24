@@ -7,9 +7,12 @@ import is.ru.flowfreeax.database.PuzzlesAdapter;
 import java.util.List;
 
 /**
+ * Global singleton object that is used to keep track of the state of the game
  * Created by joddsson on 17.9.2014.
  */
 public class Global {
+
+    //region Member Variables
     private List<Puzzle> puzzles;
     private List<Pack> packs;
     private Context context;
@@ -21,15 +24,15 @@ public class Global {
 
     private static Global mInstance = new Global();
 
+    //endregion
+
+    //region Getters and Setters
+
     public static Global getInstance() {
         return mInstance;
     }
 
     private Global() {}
-
-    public List<Puzzle> getPuzzles() {
-        return puzzles;
-    }
 
     public void setPuzzles(List<Puzzle> puzzles) {
         this.puzzles = puzzles;
@@ -48,18 +51,24 @@ public class Global {
     public void setPacks(List<Pack> packs) {
         this.packs = packs;
     }
+    //endregion
 
+    /**
+     * Finds the next puzzle in the list and starts timing
+     * @return Next puzzle in list
+     */
     public Puzzle getPuzzle() {
-        currentPuzzle = puzzles.get(iterator);
-        iterator++;
-
-        if (iterator == puzzles.size()) {
+        if (iterator >= puzzles.size()) {
             iterator = 0;
         }
+        currentPuzzle = puzzles.get(iterator);
         startTime = System.nanoTime();
         return currentPuzzle;
     }
 
+    /**
+     * Marks the current puzzle as finished in the database
+     */
     public void markAsFinished() {
         long elapsedTime = System.nanoTime() - startTime;
         Cursor cursor = puzzlesAdapter.queryPuzzles(currentPuzzle.getPid(), currentPuzzle.getType());
@@ -74,5 +83,6 @@ public class Global {
                 puzzlesAdapter.updatePuzzle(currentPuzzle.getPid(), currentPuzzle.getSize(), currentPuzzle.getType(), true, currentBestTime);
             }
         }
+        iterator++;
     }
 }

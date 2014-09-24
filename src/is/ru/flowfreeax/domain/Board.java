@@ -17,6 +17,7 @@ import java.util.List;
 
 public class Board extends View {
 
+    //region Member Variables
     private int num_cells;
     private int m_cellWidth;
     private int m_cellHeight;
@@ -31,6 +32,8 @@ public class Board extends View {
 
     private List<Route> m_routes = new ArrayList<Route>();
     private Route m_currentRoute;
+
+    //endregion
 
 
     public Board(Context context, AttributeSet attrs) {
@@ -118,7 +121,6 @@ public class Board extends View {
             if (m_currentRoute == null) {
                 return true;
             }
-            System.out.println(m_currentRoute);
 
             Coordinate coordinate = new Coordinate(c, r);
 
@@ -163,11 +165,6 @@ public class Board extends View {
         return true;
     }
 
-    private void vibrate(){
-        Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(500);
-    }
-
     //region Private Helpers
     private int xToCol( int x ) {
         return (x - getPaddingLeft()) / m_cellWidth;
@@ -183,6 +180,11 @@ public class Board extends View {
 
     private int rowToY( int row ) {
         return row * m_cellHeight + getPaddingTop() ;
+    }
+
+    private void vibrate(){
+        Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
     }
 
     private Route findRoute(int col, int row) {

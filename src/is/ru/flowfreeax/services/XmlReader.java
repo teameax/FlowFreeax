@@ -1,8 +1,6 @@
 package is.ru.flowfreeax.services;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.util.Log;
 import is.ru.flowfreeax.database.PuzzlesAdapter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,13 +17,19 @@ import java.util.List;
  * Created by joddsson on 18.9.2014.
  */
 public class XmlReader {
+    //region Member Variables
     public Global mGlobals = Global.getInstance();
     private Context context;
+    //endregion
 
     public XmlReader(Context context) {
         this.context = context;
     }
 
+    /**
+     * Reads the regular puzzles into memory and database
+     * @param is
+     */
     public void openRegular(InputStream is){
 
         try{
@@ -50,6 +54,10 @@ public class XmlReader {
         }
     }
 
+    /**
+     * Reads the time trial a.k.a mania puzzles into memory and database
+     * @param is
+     */
     public void openMania(InputStream is) {
 
         try{
@@ -97,6 +105,8 @@ public class XmlReader {
         }
     }
 
+    //region Private Helpers
+
     private List<String> readFlows(String flows) {
 
         String[] strings = flows.split(",");
@@ -128,4 +138,5 @@ public class XmlReader {
         }
         return puzzleList;
     }
+    //endregion
 }

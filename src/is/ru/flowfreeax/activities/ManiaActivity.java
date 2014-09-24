@@ -51,9 +51,9 @@ public class ManiaActivity extends Activity {
 
                 SharedPreferences score = getSharedPreferences(SCORE_NAME, 0);
                 int maniaScore = score.getInt("score", 0);
-                if (maniaScore < global.iterator - 1) {
+                if (maniaScore < global.iterator) {
                     SharedPreferences.Editor editor = score.edit();
-                    editor.putInt("score", global.iterator - 1);
+                    editor.putInt("score", global.iterator);
                     editor.commit();
                 }
                 startActivity(new Intent(getBaseContext(), MainActivity.class));

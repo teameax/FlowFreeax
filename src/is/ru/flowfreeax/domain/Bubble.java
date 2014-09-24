@@ -19,24 +19,12 @@ public class Bubble {
         return coordinate.getCol();
     }
 
-    public void setCol(int col) {
-        this.coordinate.setCol(col);
-    }
-
     public int getRow() {
         return coordinate.getRow();
     }
 
-    public void setRow(int row) {
-        this.coordinate.setRow(row);
-    }
-
     public Paint getPaint() {
         return paint;
-    }
-
-    public void setPaint(Paint paint) {
-        this.paint = paint;
     }
 
     public Coordinate getCoordinate() {

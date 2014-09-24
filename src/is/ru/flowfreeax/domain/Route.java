@@ -1,9 +1,6 @@
 package is.ru.flowfreeax.domain;
 
-import android.content.Context;
 import android.graphics.Paint;
-import android.os.Vibrator;
-
 import java.util.Arrays;
 
 /**
@@ -14,14 +11,30 @@ public class Route {
     private Cellpath _cellpath = new Cellpath();
     private Paint _paint       = new Paint();
 
+    /**
+     * Creates an starting point for the route
+     * @param col Column
+     * @param row Row
+     */
     public void createStart(int col, int row) {
         _bubbles[0] = new Bubble(col, row, _paint);
     }
 
+    /**
+     * Creates an end point for the route
+     * @param col Column
+     * @param row Row
+     */
     public void createEnd(int col, int row) {
         _bubbles[1] = new Bubble(col, row, _paint);
     }
 
+    /**
+     * Checks if given coordinate is in route
+     * @param col Column
+     * @param row Row
+     * @return True if in route, false otherwise
+     */
     public boolean isInRoute(int col, int row) {
         Coordinate coordinate = new Coordinate(col, row);
         if (_cellpath.contains(coordinate)) {
@@ -37,6 +50,10 @@ public class Route {
         }
     }
 
+    /**
+     * Checks if route is finished
+     * @return True if finished, false otherwise
+     */
     public boolean isFinished() {
         boolean firstFound = false, lastFound = false;
 
@@ -65,10 +82,21 @@ public class Route {
         return firstFound && lastFound;
     }
 
+    /**
+     * Reverts the route back to coordinates previous to given coordinate
+     * @param col Column
+     * @param row Row
+     */
     public void revert(int col, int row) {
         _cellpath.revertToNext(new Coordinate(col, row));
     }
 
+    /**
+     * Checks if coordinate is on either of the end points
+     * @param col Column
+     * @param row Row
+     * @return True if on bubble, false otherwise
+     */
     public boolean isOnBubbles(int col, int row) {
         for (Bubble bubble : _bubbles) {
             if (bubble.getCol() == col
