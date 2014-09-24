@@ -56,6 +56,7 @@ public class ManiaActivity extends Activity {
                     editor.putInt("score", global.iterator);
                     editor.commit();
                 }
+                global.iterator = 0;
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
             }
         }.start();
@@ -72,10 +73,4 @@ public class ManiaActivity extends Activity {
         return false;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        global.iterator = 0;
-
-    }
 }
