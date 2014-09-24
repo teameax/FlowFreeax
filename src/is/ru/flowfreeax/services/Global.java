@@ -75,8 +75,4 @@ public class Global {
             }
         }
     }
-
-    public void updateAchievements(boolean levelFinished) {
-        puzzlesAdapter.updateAchivements(levelFinished);
-    }
 }

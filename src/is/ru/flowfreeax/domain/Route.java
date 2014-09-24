@@ -1,6 +1,8 @@
 package is.ru.flowfreeax.domain;
 
+import android.content.Context;
 import android.graphics.Paint;
+import android.os.Vibrator;
 
 import java.util.Arrays;
 
@@ -8,7 +10,6 @@ import java.util.Arrays;
  * Created by DrepAri on 15.9.14.
  */
 public class Route {
-
     private Bubble[] _bubbles  = new Bubble[2];
     private Cellpath _cellpath = new Cellpath();
     private Paint _paint       = new Paint();
@@ -60,6 +61,7 @@ public class Route {
                 lastFound = true;
             }
         }
+
         return firstFound && lastFound;
     }
 

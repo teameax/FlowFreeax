@@ -3,12 +3,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            android:title="Audio"
+            android:title="Audio and vibration"
             android:key="Audio_category"
             >
         <SwitchPreference
                 android:key="board_labels"
                 android:summary="Sound:"
+                android:defaultValue="false"
+                />
+        <SwitchPreference
+                android:key="vibrate_labels"
+                android:summary="Vibration:"
                 android:defaultValue="false"
                 />
     </PreferenceCategory>
@@ -19,6 +24,16 @@
         <SwitchPreference
                 android:key="theme_label"
                 android:summary="Light theme"
+                android:defaultValue="false"
+                />
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="Reset"
+            android:key="Reset_category"
+            >
+        <Preference
+                android:key="reset_label"
+                android:summary="Reset levels"
                 android:defaultValue="false"
                 />
     </PreferenceCategory>
