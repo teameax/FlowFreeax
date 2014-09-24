@@ -3,12 +3,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            android:title="Audio"
+            android:title="Audio and vibration"
             android:key="Audio_category"
             >
         <SwitchPreference
                 android:key="board_labels"
                 android:summary="Sound:"
+                android:defaultValue="false"
+                />
+        <SwitchPreference
+                android:key="vibrate_labels"
+                android:summary="Vibration:"
                 android:defaultValue="false"
                 />
     </PreferenceCategory>
