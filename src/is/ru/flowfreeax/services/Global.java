@@ -36,11 +36,11 @@ public class Global {
 
     public void setPuzzles(List<Puzzle> puzzles) {
         this.puzzles = puzzles;
+        this.iterator = 0;
     }
 
     public void setContext(Context c) {
         this.context = c;
-        this.iterator = 0;
         this.puzzlesAdapter = new PuzzlesAdapter(context);
     }
 
@@ -64,6 +64,10 @@ public class Global {
         currentPuzzle = puzzles.get(iterator);
         startTime = System.nanoTime();
         return currentPuzzle;
+    }
+
+    public String getPuzzlesType() {
+        return puzzles.get(0).getType();
     }
 
     /**

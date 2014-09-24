@@ -12,6 +12,7 @@ import android.widget.Button;
 import is.ru.flowfreeax.R;
 import is.ru.flowfreeax.services.Global;
 import is.ru.flowfreeax.services.Pack;
+import is.ru.flowfreeax.services.Puzzle;
 import is.ru.flowfreeax.services.XmlReader;
 
 import java.io.IOException;
@@ -23,13 +24,14 @@ import java.util.List;
  */
 public class MainActivity extends Activity {
     XmlReader reader = new XmlReader(this);
+    List<Puzzle> regularPuzzles = null;
+    List<Puzzle> maniaPuzzles = null;
+    Global global = Global.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
-        Global global = Global.getInstance();
         global.setContext(this);
 
         try {
@@ -55,12 +57,24 @@ public class MainActivity extends Activity {
         try {
             if (id == R.id.button_play) {
                 playSound();
-                reader.openRegular(getAssets().open(openRegular));
+                if (regularPuzzles == null) {
+                    regularPuzzles = reader.openRegular(getAssets().open(openRegular));
+                    global.setPuzzles(regularPuzzles);
+                }
+                else if (global.getPuzzlesType() != "regular") {
+                    global.setPuzzles(regularPuzzles);
+                }
                 startActivity(new Intent(this, PlayActivity.class));
             }
             else if(id == R.id.button_timeTrial){
                 playSound();
-                reader.openMania(getAssets().open(openMania));
+                if (maniaPuzzles == null) {
+                    maniaPuzzles = reader.openMania(getAssets().open(openMania));
+                    global.setPuzzles(maniaPuzzles);
+                }
+                else if (global.getPuzzlesType() != "mania") {
+                    global.setPuzzles(maniaPuzzles);
+                }
                 startActivity(new Intent(this, ManiaActivity.class));
 
             }

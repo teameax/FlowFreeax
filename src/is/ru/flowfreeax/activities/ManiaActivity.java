@@ -60,6 +60,7 @@ public class ManiaActivity extends Activity {
                     editor.putInt("score", global.iterator);
                     editor.commit();
                 }
+                global.iterator = 0;
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
             }
         }.start();

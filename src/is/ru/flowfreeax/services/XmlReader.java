@@ -30,54 +30,50 @@ public class XmlReader {
      * Reads the regular puzzles into memory and database
      * @param is
      */
-    public void openRegular(InputStream is){
+    public List<Puzzle> openRegular(InputStream is){
 
+        List<Puzzle> puzzles                = new ArrayList<Puzzle>();
         try{
             DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
             Document doc                        = dBuilder.parse(is);
             NodeList cList                      = doc.getElementsByTagName( "challenge" );
-            Global global                       = Global.getInstance();
-            List<Puzzle> puzzles                = new ArrayList<Puzzle>();
 
 
             for (int i = 0; i < cList.getLength(); i++) {
                 puzzles.addAll(readIntoDatabase(cList.item(i).getChildNodes(), "regular"));
             }
 
-            global.setPuzzles(puzzles);
-
-
         }
         catch (Exception e){
             e.printStackTrace();
         }
+        return puzzles;
     }
 
     /**
      * Reads the time trial a.k.a mania puzzles into memory and database
      * @param is
      */
-    public void openMania(InputStream is) {
+    public List<Puzzle> openMania(InputStream is) {
 
+        List<Puzzle> puzzles                = new ArrayList<Puzzle>();
         try{
             DocumentBuilderFactory dbFactory    = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder            = dbFactory.newDocumentBuilder();
             Document doc                        = dBuilder.parse( is );
             NodeList cList                      = doc.getElementsByTagName( "challenge" );
-            Global global                       = Global.getInstance();
-            List<Puzzle> puzzles                = new ArrayList<Puzzle>();
 
             for (int i = 0; i < cList.getLength(); i++) {
                 puzzles.addAll(readIntoDatabase(cList.item(i).getChildNodes(), "mania"));
             }
 
-            global.setPuzzles(puzzles);
-
         }
         catch (Exception e){
             e.printStackTrace();
         }
+
+        return puzzles;
     }
 
     // Read the xml files containing the bubble placements.
