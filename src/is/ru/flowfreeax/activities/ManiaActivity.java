@@ -42,17 +42,19 @@ public class ManiaActivity extends Activity {
      */
     public void setTimer(){
         setContentView(R.layout.play);
-        timer = new CountDownTimer(40000, 1000){
+        timer = new CountDownTimer(60000, 1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
                 TextView time = (TextView)findViewById(R.id.timer);
                 time.setText("Time remaining: " + millisUntilFinished / 1000);
+                if(millisUntilFinished / 1000 <= 5){
+                    time.setTextColor(Color.RED);
+                }
             }
 
             @Override
             public void onFinish() {
-
                 SharedPreferences score = getSharedPreferences(SCORE_NAME, 0);
                 int maniaScore = score.getInt("score", 0);
                 if (maniaScore < global.iterator) {

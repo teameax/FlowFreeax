@@ -49,22 +49,22 @@ public class MainActivity extends Activity {
 
         try {
             if (id == R.id.button_play) {
-                playSound();
+                playSound("button3.mp3");
                 reader.openRegular(getAssets().open(openRegular));
                 startActivity(new Intent(this, PlayActivity.class));
             }
             else if(id == R.id.button_timeTrial){
-                playSound();
+                playSound("button3.mp3");
                 reader.openMania(getAssets().open(openMania));
                 startActivity(new Intent(this, ManiaActivity.class));
 
             }
             else if (id == R.id.button_options) {
-                playSound();
+                playSound("button3.mp3");
                 startActivity(new Intent(this, OptionsActivity.class));
             }
             else if (id == R.id.button_achievements) {
-                playSound();
+                playSound("button3.mp3");
                 startActivity(new Intent(this, AchievementActivity.class));
             }
         }
@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
     /**
      * Play sound when buttons in main layout if the the audio switch is on in the options.
      */
-    public void playSound() {
+    public void playSound(String sound) {
         final MediaPlayer mp = new MediaPlayer();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         Boolean switchOn = preferences.getBoolean("board_labels", false);
@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
             try {
                 mp.reset();
                 AssetFileDescriptor afd;
-                afd = getAssets().openFd("button3.mp3");
+                afd = getAssets().openFd(sound);
                 mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                 mp.prepare();
                 mp.start();

@@ -32,7 +32,6 @@ public class Board extends View {
 
     private List<Route> m_routes = new ArrayList<Route>();
     private Route m_currentRoute;
-
     //endregion
 
 
@@ -234,7 +233,6 @@ public class Board extends View {
                 return;
             }
         }
-
         global.markAsFinished();
         getNewPuzzle();
         invalidate();
